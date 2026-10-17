@@ -9,18 +9,17 @@ public class PlayerControlsManager : MonoBehaviour
 
     [HideInInspector]
     public Vector3 lookDelta = Vector3.zero;
+
     [HideInInspector]
-    public bool jumpInitiated = false;
+    public bool leftClickInitiated = false;
     [HideInInspector]
-    public bool shootInitiated = false;
-    [HideInInspector]
-    public bool shootAltInitiated = false;
+    public bool rightClickInitiated = false;
 
     private static float mouseSensitivity = 0.25f;
 
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         if (instance == null)
         {
@@ -31,6 +30,9 @@ public class PlayerControlsManager : MonoBehaviour
 
         this._playerControls.PlayerMap.Look.performed += this.UpdateLookDirection;
         this._playerControls.PlayerMap.Look.canceled += this.StopLookDirection;
+
+        this._playerControls.PlayerMap.LeftClick.performed += this.ExecuteLeftClick;
+        this._playerControls.PlayerMap.RightClick.performed += this.ExecuteRightClick;
     }
     private void OnEnable()
     {
@@ -72,6 +74,21 @@ public class PlayerControlsManager : MonoBehaviour
     public bool IsPressingRight()
     {
         return this._playerControls.PlayerMap.Right.inProgress;
+    }
+
+    public bool IsHoldingLeftClick()
+    {
+        return this._playerControls.PlayerMap.LeftClick.inProgress;
+    }
+
+    private void ExecuteLeftClick(InputAction.CallbackContext context)
+    {
+        this.leftClickInitiated = true;
+    }
+
+    private void ExecuteRightClick(InputAction.CallbackContext context)
+    {
+        this.rightClickInitiated = true;
     }
 
     public void UpdateMouseSensitivity(float value)

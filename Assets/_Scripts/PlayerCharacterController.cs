@@ -19,6 +19,18 @@ public class PlayerCharacterController : MonoBehaviour
 
     private float _maxVerticalAngle = 90.0f;
 
+    private bool _isDrawing = false;
+
+    [SerializeField]
+    private GameObject _stickyNotePrefab;
+    private GameObject _currentStickyNote;
+    private float _stickyNoteZDistanceFromCamera = 1.5f;
+
+
+    public PlayerState _currentState;
+
+
+
     private void Awake()
     {
         this._cameraTransform = Camera.main.transform;
@@ -26,15 +38,26 @@ public class PlayerCharacterController : MonoBehaviour
     }
 
     private void Update()
-    {
-        this._moveDirection = this.GetLatestMoveDirection();
+    {        
+        this._currentState.UpdateState();
     }
 
     private void FixedUpdate()
     {
-        this.UpdateCameraRotation();
+        this._currentState.FixedUpdateState();    
+    
+        if (this._isDrawing == false)
+        {
+            this.UpdateCameraRotation();
+            this.UpdateLateralVelocity();
+        }
+    }
 
-        this.UpdateLateralVelocity();
+    public void ChangeState(PlayerState newState)
+    {
+        this._currentState.ExitState();
+        this._currentState = newState;
+        this._currentState.EnterState(this);
     }
 
     private float GetClampedXAngle()
@@ -51,7 +74,7 @@ public class PlayerCharacterController : MonoBehaviour
         return xRotation;
     }
 
-    private void UpdateCameraRotation()
+    public void UpdateCameraRotation()
     {
         Quaternion yRotation = Quaternion.AngleAxis(PlayerControlsManager.instance.lookDelta.y, Vector3.up);
         Quaternion xRotation = Quaternion.Euler(this.GetClampedXAngle(), this._cameraTransform.rotation.eulerAngles.y, 0.0f);
@@ -89,7 +112,7 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
-    private void UpdateLateralVelocity()
+    public void UpdateLateralVelocity()
     {
         Vector3 lateralVelocity = this._moveDirection * this._maxMoveVelocity;
 
@@ -115,7 +138,7 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
-    private Vector3 GetLatestMoveDirection()
+    public void UpdateLatestMoveDirection()
     {
         Vector3 returnVector = Vector3.zero;
 
@@ -139,6 +162,24 @@ public class PlayerCharacterController : MonoBehaviour
             returnVector += this._cameraTransform.right;
         }
 
-        return returnVector.normalized;
+        this._moveDirection = returnVector.normalized;
+    }
+
+    public void InstantiateStickyNote()
+    {
+        Vector3 instantiationPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._stickyNoteZDistanceFromCamera);
+        Quaternion instantiationRotation = Quaternion.Euler(this._cameraTransform.rotation.eulerAngles.x, this._cameraTransform.rotation.eulerAngles.y, this._cameraTransform.rotation.eulerAngles.z);
+        
+        this._currentStickyNote = Instantiate(this._currentStickyNote, instantiationPosition, instantiationRotation);
+    }
+
+    public void PostStickyNote()
+    { 
+    
+    }
+
+    public void DiscardStickyNote()
+    {
+        Destroy(this._currentStickyNote);
     }
 }
