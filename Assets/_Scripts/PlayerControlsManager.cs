@@ -19,6 +19,8 @@ public class PlayerControlsManager : MonoBehaviour
 
     private static float mouseSensitivity = 0.25f;
 
+    public PlayerCharacterController characterController;
+
     private void Awake()
     {       
         if (instance == null)
@@ -100,5 +102,12 @@ public class PlayerControlsManager : MonoBehaviour
     public void UpdateMouseSensitivity(float value)
     {
         PlayerControlsManager.mouseSensitivity = value;
-    }    
+    }
+
+    public void ResetAllInitiatedInputs()
+    {
+        this.leftClickInitiated = false;
+        this.rightClickInitiated = false;
+        this.spacePressInitiated = false;
+    }
 }

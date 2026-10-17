@@ -28,7 +28,6 @@ public class DrawState : PlayerState
 
         if (this.characterController.currentStickyNote == null)
         {
-            PlayerControlsManager.instance.spacePressInitiated = false;
             this.characterController.ChangeState(new MoveState());
         }
     }

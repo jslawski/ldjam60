@@ -6,6 +6,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacterController : MonoBehaviour
 {
+    private struct RaycastHitCheck
+    {
+        public bool success;
+        public RaycastHit hitInfo;
+    }
+
     private Transform _cameraTransform;
     private Rigidbody _playerRigidbody;
 
@@ -22,9 +28,8 @@ public class PlayerCharacterController : MonoBehaviour
 
     [SerializeField]
     private GameObject _stickyNotePrefab;
-    [HideInInspector]
     public GameObject currentStickyNote;
-    private float _stickyNoteZDistanceFromCamera = 1.2f;
+    private float _stickyNoteZDistanceFromCamera = 0.25f;
 
     [SerializeField]
     private GameObject _discardedStickyNotePrefab;
@@ -35,6 +40,13 @@ public class PlayerCharacterController : MonoBehaviour
     private GameObject _heldObject;
     private Vector3 _cachedObjectPosition;
     private Quaternion _cachedObjectRotation;
+
+    [SerializeField]
+    private LayerMask _raycastLayer;
+    private RaycastHitCheck _hitCheck = new RaycastHitCheck();
+    private float _raycastMaxDistance = 3.0f;
+
+    private float _placementOffset = 0.0011f;
 
     private void Awake()
     {
@@ -66,6 +78,8 @@ public class PlayerCharacterController : MonoBehaviour
             
         this._currentState = newState;
         this._currentState.EnterState(this);
+
+        Debug.LogError("New State: " + this._currentState.GetType().Name);
     }
 
     private float GetClampedXAngle()
@@ -188,7 +202,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void InstantiateStickyNote()
     {
-        Vector3 instantiationPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._stickyNoteZDistanceFromCamera) - this._cameraTransform.up;
+        Vector3 instantiationPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._stickyNoteZDistanceFromCamera);
         Quaternion instantiationRotation = Quaternion.Euler(this._cameraTransform.rotation.eulerAngles.x, this._cameraTransform.rotation.eulerAngles.y, this._cameraTransform.rotation.eulerAngles.z);
         
         this.currentStickyNote = Instantiate(this._stickyNotePrefab, instantiationPosition, instantiationRotation);
@@ -204,7 +218,7 @@ public class PlayerCharacterController : MonoBehaviour
         this._cachedObjectRotation = targetObject.transform.rotation;
     
         Vector3 targetPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._stickyNoteZDistanceFromCamera);
-        Quaternion targetRotation = Quaternion.Euler(this._cameraTransform.rotation.eulerAngles.x, this._cameraTransform.rotation.eulerAngles.y, this._cameraTransform.rotation.eulerAngles.z);
+        Quaternion targetRotation = this._cameraTransform.rotation;
 
         targetObject.transform.DOMove(targetPosition, 0.4f).SetEase(Ease.OutExpo);
         targetObject.transform.DORotateQuaternion(targetRotation, 0.4f);
@@ -221,8 +235,30 @@ public class PlayerCharacterController : MonoBehaviour
     }
 
     public void AttemptPostStickyNote()
-    { 
-    
+    {
+        if (this._hitCheck.success == true)
+        {
+            this.currentStickyNote.layer = LayerMask.NameToLayer("PostedNote");
+            this.currentStickyNote = null;
+        }
+
+        this._heldObject = null;
+    }
+
+    public void UpdateStickyNoteCurrentPosition()
+    {
+        this.CastCameraRay();
+
+        if (this._hitCheck.success == true)
+        {
+            this.currentStickyNote.transform.position = this._hitCheck.hitInfo.point + (this._hitCheck.hitInfo.normal * this._placementOffset);
+            this.currentStickyNote.transform.forward = -this._hitCheck.hitInfo.normal;
+        }
+        else
+        {
+            this.currentStickyNote.transform.position = this._cameraTransform.position + (this._cameraTransform.forward * this._raycastMaxDistance);
+            this.currentStickyNote.transform.forward = this._cameraTransform.forward;
+        }
     }
 
     public void DiscardStickyNote()
@@ -237,5 +273,21 @@ public class PlayerCharacterController : MonoBehaviour
 
         Vector3 spawnPosition = this._cameraTransform.position + offsetVector;
         Instantiate(this._discardedStickyNotePrefab, spawnPosition, this._cameraTransform.rotation);
+    }
+
+    private void CastCameraRay()
+    {
+        Ray cameraRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        this._hitCheck = new RaycastHitCheck();
+
+
+        if (Physics.Raycast(cameraRay, out _hitCheck.hitInfo, this._raycastMaxDistance, this._raycastLayer) == true)
+        {
+            this._hitCheck.success = true;
+        }
+        else
+        {
+            this._hitCheck.success = false;
+        }
     }
 }

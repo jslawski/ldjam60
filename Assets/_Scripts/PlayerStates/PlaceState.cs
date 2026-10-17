@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class PlaceState : PlayerState
 {
+    private float _timeToSetup = 0.0f;
+
     public override void EnterState(PlayerCharacterController characterController)
     {
         base.EnterState(characterController);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public override void ExitState()
+    {
+        this.characterController.StopMovement();
     }
 
     public override void UpdateState()
@@ -20,6 +27,7 @@ public class PlaceState : PlayerState
         {
             PlayerControlsManager.instance.spacePressInitiated = false;
             this.characterController.HoldObject(this.characterController.currentStickyNote);
+            this.characterController.ChangeState(new DrawState());
         }
 
         if (PlayerControlsManager.instance.leftClickInitiated == true)
@@ -34,7 +42,7 @@ public class PlaceState : PlayerState
             this.characterController.DiscardStickyNote();
         }
 
-        if (this.characterController.currentStickyNote != null)
+        if (this.characterController.currentStickyNote == null)
         {
             this.characterController.ChangeState(new MoveState());
         }
@@ -44,5 +52,14 @@ public class PlaceState : PlayerState
     {
         this.characterController.UpdateCameraRotation();
         this.characterController.UpdateLateralVelocity();
+
+        if (this._timeToSetup > 0.0f)
+        {
+            this._timeToSetup -= Time.fixedDeltaTime;
+        }
+        else
+        {
+            this.characterController.UpdateStickyNoteCurrentPosition();
+        }
     }
 }

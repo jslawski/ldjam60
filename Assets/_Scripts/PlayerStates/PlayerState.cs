@@ -9,6 +9,8 @@ public class PlayerState
     public virtual void EnterState(PlayerCharacterController characterController)
     { 
         this.characterController = characterController;
+
+        PlayerControlsManager.instance.ResetAllInitiatedInputs();
     }
     
     public virtual void ExitState()
