@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3719269813910076307}
   - component: {fileID: 1064124791093711115}
   - component: {fileID: 3455212485370136577}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,6 +81,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxMoveVelocity: 15
+  _stickyNotePrefab: {fileID: 4979515923501716167, guid: 659831666f275dd4bbdd639bc2373181,
+    type: 3}
+  currentStickyNote: {fileID: 0}
+  _discardedStickyNotePrefab: {fileID: 3827021974903191462, guid: 6cf4da2e62843ac4d9dc03379a6d72e2,
+    type: 3}
+  _raycastLayer:
+    serializedVersion: 2
+    m_Bits: 257
 --- !u!54 &1064124791093711115
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -106,7 +114,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &3455212485370136577
 MonoBehaviour:
@@ -121,9 +129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookDelta: {x: 0, y: 0, z: 0}
-  jumpInitiated: 0
-  shootInitiated: 0
-  shootAltInitiated: 0
+  leftClickInitiated: 0
+  rightClickInitiated: 0
+  spacePressInitiated: 0
+  characterController: {fileID: 3719269813910076307}
 --- !u!1 &5626332801135182957
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +145,7 @@ GameObject:
   - component: {fileID: 3457321082757373771}
   - component: {fileID: 6663496077738259751}
   - component: {fileID: 4194638083900447638}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -189,7 +198,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.05
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -273,7 +282,7 @@ GameObject:
   - component: {fileID: 378281163727154866}
   - component: {fileID: 3152660232442918317}
   - component: {fileID: 6801200490836318863}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

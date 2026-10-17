@@ -395,18 +395,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1076098433 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3719269813910076307, guid: 79088ed77f591ff43938a407fda6ad70,
-    type: 3}
-  m_PrefabInstance: {fileID: 4007428436656226328}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7915d50d2e76ba34cac522a3abd894f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1876969213
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,67 +720,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1064124791093711115, guid: 79088ed77f591ff43938a407fda6ad70,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 116
-      objectReference: {fileID: 0}
-    - target: {fileID: 3455212485370136577, guid: 79088ed77f591ff43938a407fda6ad70,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3455212485370136577, guid: 79088ed77f591ff43938a407fda6ad70,
-        type: 3}
-      propertyPath: characterController
-      value: 
-      objectReference: {fileID: 1076098433}
-    - target: {fileID: 3457321082757373771, guid: 79088ed77f591ff43938a407fda6ad70,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3719269813910076307, guid: 79088ed77f591ff43938a407fda6ad70,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3719269813910076307, guid: 79088ed77f591ff43938a407fda6ad70,
-        type: 3}
-      propertyPath: _stickyNotePrefab
-      value: 
-      objectReference: {fileID: 4979515923501716167, guid: 659831666f275dd4bbdd639bc2373181,
-        type: 3}
-    - target: {fileID: 3719269813910076307, guid: 79088ed77f591ff43938a407fda6ad70,
-        type: 3}
-      propertyPath: _raycastLayer.m_Bits
-      value: 257
-      objectReference: {fileID: 0}
-    - target: {fileID: 3719269813910076307, guid: 79088ed77f591ff43938a407fda6ad70,
-        type: 3}
-      propertyPath: _discardedStickyNotePrefab
-      value: 
-      objectReference: {fileID: 3827021974903191462, guid: 6cf4da2e62843ac4d9dc03379a6d72e2,
-        type: 3}
     - target: {fileID: 3768188969774269805, guid: 79088ed77f591ff43938a407fda6ad70,
         type: 3}
       propertyPath: m_Name
       value: PlayerCharacter
-      objectReference: {fileID: 0}
-    - target: {fileID: 3768188969774269805, guid: 79088ed77f591ff43938a407fda6ad70,
-        type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626332801135182957, guid: 79088ed77f591ff43938a407fda6ad70,
-        type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6201540255880284339, guid: 79088ed77f591ff43938a407fda6ad70,
-        type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7189124289515494227, guid: 79088ed77f591ff43938a407fda6ad70,
         type: 3}
