@@ -10,7 +10,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     private Vector3 _moveDirection = Vector3.zero;
     private float _moveAcceleration = 5.0f;
-    private float _maxMoveVelocity = 15.0f;
+    public float _maxMoveVelocity = 15.0f;
     private Coroutine _moveLerpCoroutine = null;
 
     private Quaternion _targetRotation = Quaternion.identity;
