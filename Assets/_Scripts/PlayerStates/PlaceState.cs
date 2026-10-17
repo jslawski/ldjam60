@@ -12,6 +12,8 @@ public class PlaceState : PlayerState
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        this.characterController.currentStickyNote.GetComponent<StickyNote>().SetToPlacing();
     }
 
     public override void ExitState()

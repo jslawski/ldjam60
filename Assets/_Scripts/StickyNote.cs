@@ -17,6 +17,8 @@ public class StickyNote : MonoBehaviour
     private float _minDistanceBetweenPoints = 0.005f;
 
     private float _offset = 0.001f;
+    
+    private bool _prepared = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,14 +26,42 @@ public class StickyNote : MonoBehaviour
         
     }
 
+    public void PrepareToDraw()
+    {
+        this.gameObject.layer = LayerMask.NameToLayer("StickyNote");
+
+        Invoke("StickyNoteInitialized", 0.5f);
+    }
+
+    public void SetToPlacing()
+    {
+        this._prepared = false;
+    }
+
+    private void StickyNoteInitialized()
+    {
+        this._prepared = true;
+    }
+
+    public void PostNote()
+    {
+        this.gameObject.layer = LayerMask.NameToLayer("PostedNote");
+        this._prepared = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (this._prepared == false)
+        {
+            return;
+        }
+    /*
         if (PlayerControlsManager.instance.characterController._currentState.GetType() != typeof(DrawState))
         {
             return;
         }
-
+*/
         if (PlayerControlsManager.instance.IsHoldingLeftClick() == true)
         {
             if (this.IsMouseOnNote() == true)
@@ -56,8 +86,6 @@ public class StickyNote : MonoBehaviour
             this.EndLine();
         }
     }
-
-
 
     private void StartNewLine()
     {

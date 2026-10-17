@@ -10,6 +10,8 @@ public class MoveState : PlayerState
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        this.characterController.EnableHUD();
     }
 
     public override void ExitState()
@@ -24,9 +26,9 @@ public class MoveState : PlayerState
         if (PlayerControlsManager.instance.leftClickInitiated == true)
         {
             PlayerControlsManager.instance.leftClickInitiated = false;
-            //this.characterController.ChangeState(new LookState());
+            this.characterController.TryPickupStickyNote();
 
-            //this.characterController.DiscardStickyNote();
+            //Also check for door opens here
         }
         
         if (PlayerControlsManager.instance.spacePressInitiated == true)

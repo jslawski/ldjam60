@@ -10,6 +10,10 @@ public class DrawState : PlayerState
 
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+
+        this.characterController.currentStickyNote.GetComponent<StickyNote>().PrepareToDraw();
+
+        this.characterController.DisableHUD();
     }
 
     public override void UpdateState()

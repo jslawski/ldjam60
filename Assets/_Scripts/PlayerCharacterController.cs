@@ -43,10 +43,16 @@ public class PlayerCharacterController : MonoBehaviour
 
     [SerializeField]
     private LayerMask _raycastLayer;
+    [SerializeField]
+    private LayerMask _postedNoteLayer;
+
     private RaycastHitCheck _hitCheck = new RaycastHitCheck();
     private float _raycastMaxDistance = 3.0f;
 
     private float _placementOffset = 0.0011f;
+
+    [SerializeField]
+    private GameObject _hudCanvas;
 
     private void Awake()
     {
@@ -202,7 +208,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void InstantiateStickyNote()
     {
-        Vector3 instantiationPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._stickyNoteZDistanceFromCamera);
+        Vector3 instantiationPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._stickyNoteZDistanceFromCamera) - this._cameraTransform.up;
         Quaternion instantiationRotation = Quaternion.Euler(this._cameraTransform.rotation.eulerAngles.x, this._cameraTransform.rotation.eulerAngles.y, this._cameraTransform.rotation.eulerAngles.z);
         
         this.currentStickyNote = Instantiate(this._stickyNotePrefab, instantiationPosition, instantiationRotation);
@@ -238,7 +244,7 @@ public class PlayerCharacterController : MonoBehaviour
     {
         if (this._hitCheck.success == true)
         {
-            this.currentStickyNote.layer = LayerMask.NameToLayer("PostedNote");
+            this.currentStickyNote.GetComponent<StickyNote>().PostNote();
             this.currentStickyNote = null;
         }
 
@@ -247,7 +253,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void UpdateStickyNoteCurrentPosition()
     {
-        this.CastCameraRay();
+        this.CastCameraRay(this._raycastLayer);
 
         if (this._hitCheck.success == true)
         {
@@ -275,13 +281,25 @@ public class PlayerCharacterController : MonoBehaviour
         Instantiate(this._discardedStickyNotePrefab, spawnPosition, this._cameraTransform.rotation);
     }
 
-    private void CastCameraRay()
+    public void TryPickupStickyNote()
+    {
+        this.CastCameraRay(this._postedNoteLayer);
+
+        if (this._hitCheck.success == true)
+        {
+            this.currentStickyNote = this._hitCheck.hitInfo.collider.gameObject;
+            this.currentStickyNote.GetComponent<StickyNote>().PrepareToDraw();
+            this.HoldObject(this._hitCheck.hitInfo.collider.gameObject);
+        }        
+    }
+
+    private void CastCameraRay(LayerMask targetLayer)
     {
         Ray cameraRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         this._hitCheck = new RaycastHitCheck();
 
 
-        if (Physics.Raycast(cameraRay, out _hitCheck.hitInfo, this._raycastMaxDistance, this._raycastLayer) == true)
+        if (Physics.Raycast(cameraRay, out _hitCheck.hitInfo, this._raycastMaxDistance, targetLayer) == true)
         {
             this._hitCheck.success = true;
         }
@@ -289,5 +307,15 @@ public class PlayerCharacterController : MonoBehaviour
         {
             this._hitCheck.success = false;
         }
+    }
+
+    public void EnableHUD()
+    {
+        this._hudCanvas.SetActive(true);
+    }
+
+    public void DisableHUD()
+    {
+        this._hudCanvas.SetActive(false);
     }
 }
