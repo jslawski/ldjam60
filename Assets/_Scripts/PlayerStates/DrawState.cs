@@ -8,9 +8,28 @@ public class DrawState : PlayerState
     {
         base.EnterState(characterController);
 
-        this.characterController.InstantiateStickyNote();
-
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+    }
+
+    public override void UpdateState()
+    {
+        if (PlayerControlsManager.instance.rightClickInitiated == true)
+        {
+            PlayerControlsManager.instance.rightClickInitiated = false;
+            this.characterController.DiscardStickyNote();
+        }
+
+        if (PlayerControlsManager.instance.spacePressInitiated == true)
+        {
+            PlayerControlsManager.instance.spacePressInitiated = false;    
+            this.characterController.ChangeState(new PlaceState());
+        }
+
+        if (this.characterController.currentStickyNote == null)
+        {
+            PlayerControlsManager.instance.spacePressInitiated = false;
+            this.characterController.ChangeState(new MoveState());
+        }
     }
 }

@@ -12,18 +12,31 @@ public class MoveState : PlayerState
         Cursor.visible = false;
     }
 
+    public override void ExitState()
+    {
+        this.characterController.StopMovement();
+    }
+
     public override void UpdateState()
     {
         this.characterController.UpdateLatestMoveDirection();
-
+        
         if (PlayerControlsManager.instance.leftClickInitiated == true)
         {
             PlayerControlsManager.instance.leftClickInitiated = false;
-            this.characterController.ChangeState(new LookState());
+            //this.characterController.ChangeState(new LookState());
+
+            //this.characterController.DiscardStickyNote();
         }
-        else if (PlayerControlsManager.instance.rightClickInitiated == true)
+        
+        if (PlayerControlsManager.instance.spacePressInitiated == true)
         { 
-            PlayerControlsManager.instance.rightClickInitiated = false;
+            PlayerControlsManager.instance.spacePressInitiated = false;
+            this.characterController.InstantiateStickyNote();
+        }
+
+        if (this.characterController.currentStickyNote != null)
+        {
             this.characterController.ChangeState(new DrawState());
         }
     }

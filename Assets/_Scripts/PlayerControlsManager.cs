@@ -14,13 +14,13 @@ public class PlayerControlsManager : MonoBehaviour
     public bool leftClickInitiated = false;
     [HideInInspector]
     public bool rightClickInitiated = false;
+    [HideInInspector]
+    public bool spacePressInitiated = false;
 
     private static float mouseSensitivity = 0.25f;
 
     private void Awake()
-    {
-        //Cursor.lockState = CursorLockMode.Locked;
-
+    {       
         if (instance == null)
         {
             instance = this;
@@ -33,6 +33,7 @@ public class PlayerControlsManager : MonoBehaviour
 
         this._playerControls.PlayerMap.LeftClick.performed += this.ExecuteLeftClick;
         this._playerControls.PlayerMap.RightClick.performed += this.ExecuteRightClick;
+        this._playerControls.PlayerMap.Space.performed += this.ExecuteSpace;
     }
     private void OnEnable()
     {
@@ -89,6 +90,11 @@ public class PlayerControlsManager : MonoBehaviour
     private void ExecuteRightClick(InputAction.CallbackContext context)
     {
         this.rightClickInitiated = true;
+    }
+
+    private void ExecuteSpace(InputAction.CallbackContext context)
+    {
+        this.spacePressInitiated = true;
     }
 
     public void UpdateMouseSensitivity(float value)

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,22 +20,31 @@ public class PlayerCharacterController : MonoBehaviour
 
     private float _maxVerticalAngle = 90.0f;
 
-    private bool _isDrawing = false;
-
     [SerializeField]
     private GameObject _stickyNotePrefab;
-    private GameObject _currentStickyNote;
-    private float _stickyNoteZDistanceFromCamera = 1.5f;
+    [HideInInspector]
+    public GameObject currentStickyNote;
+    private float _stickyNoteZDistanceFromCamera = 1.2f;
 
+    [SerializeField]
+    private GameObject _discardedStickyNotePrefab;
+    private Vector3 _discardedNoteOffsetPosition = new Vector3(-0.5f, -0.5f, 0.3f);
 
     public PlayerState _currentState;
 
-
+    private GameObject _heldObject;
+    private Vector3 _cachedObjectPosition;
+    private Quaternion _cachedObjectRotation;
 
     private void Awake()
     {
         this._cameraTransform = Camera.main.transform;
         this._playerRigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        this.ChangeState(new MoveState());
     }
 
     private void Update()
@@ -45,17 +55,15 @@ public class PlayerCharacterController : MonoBehaviour
     private void FixedUpdate()
     {
         this._currentState.FixedUpdateState();    
-    
-        if (this._isDrawing == false)
-        {
-            this.UpdateCameraRotation();
-            this.UpdateLateralVelocity();
-        }
     }
 
     public void ChangeState(PlayerState newState)
     {
-        this._currentState.ExitState();
+        if (this._currentState != null)
+        {
+            this._currentState.ExitState();
+        }
+            
         this._currentState = newState;
         this._currentState.EnterState(this);
     }
@@ -165,21 +173,69 @@ public class PlayerCharacterController : MonoBehaviour
         this._moveDirection = returnVector.normalized;
     }
 
-    public void InstantiateStickyNote()
+    public void StopMovement()
     {
-        Vector3 instantiationPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._stickyNoteZDistanceFromCamera);
-        Quaternion instantiationRotation = Quaternion.Euler(this._cameraTransform.rotation.eulerAngles.x, this._cameraTransform.rotation.eulerAngles.y, this._cameraTransform.rotation.eulerAngles.z);
+        this._moveDirection = Vector3.zero;
         
-        this._currentStickyNote = Instantiate(this._currentStickyNote, instantiationPosition, instantiationRotation);
+        if (this._moveLerpCoroutine != null)
+        {
+            StopCoroutine(this._moveLerpCoroutine);
+            this._moveLerpCoroutine = null;
+        }
+
+        this._playerRigidbody.velocity = Vector3.zero;
     }
 
-    public void PostStickyNote()
+    public void InstantiateStickyNote()
+    {
+        Vector3 instantiationPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._stickyNoteZDistanceFromCamera) - this._cameraTransform.up;
+        Quaternion instantiationRotation = Quaternion.Euler(this._cameraTransform.rotation.eulerAngles.x, this._cameraTransform.rotation.eulerAngles.y, this._cameraTransform.rotation.eulerAngles.z);
+        
+        this.currentStickyNote = Instantiate(this._stickyNotePrefab, instantiationPosition, instantiationRotation);
+
+        this.HoldObject(this.currentStickyNote);
+    }
+
+    public void HoldObject(GameObject targetObject)
+    {
+        this._heldObject = targetObject;
+    
+        this._cachedObjectPosition = targetObject.transform.position;
+        this._cachedObjectRotation = targetObject.transform.rotation;
+    
+        Vector3 targetPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._stickyNoteZDistanceFromCamera);
+        Quaternion targetRotation = Quaternion.Euler(this._cameraTransform.rotation.eulerAngles.x, this._cameraTransform.rotation.eulerAngles.y, this._cameraTransform.rotation.eulerAngles.z);
+
+        targetObject.transform.DOMove(targetPosition, 0.4f).SetEase(Ease.OutExpo);
+        targetObject.transform.DORotateQuaternion(targetRotation, 0.4f);
+    }
+
+    public void PutObjectBack()
+    {
+        this._heldObject.transform.DOMove(this._cachedObjectPosition, 0.4f).SetEase(Ease.OutExpo);
+        this._heldObject.transform.DORotateQuaternion(this._cachedObjectRotation, 0.4f);
+
+        this._heldObject = null;
+        this._cachedObjectPosition = Vector3.zero;
+        this._cachedObjectRotation = Quaternion.identity;
+    }
+
+    public void AttemptPostStickyNote()
     { 
     
     }
 
     public void DiscardStickyNote()
     {
-        Destroy(this._currentStickyNote);
+        Destroy(this.currentStickyNote);
+        this.currentStickyNote = null;
+
+        Vector3 offsetVector = (-this._cameraTransform.right * this._discardedNoteOffsetPosition.x) + 
+                               (this._cameraTransform.up * this._discardedNoteOffsetPosition.y) + 
+                               (this._cameraTransform.forward * this._discardedNoteOffsetPosition.z);
+
+
+        Vector3 spawnPosition = this._cameraTransform.position + offsetVector;
+        Instantiate(this._discardedStickyNotePrefab, spawnPosition, this._cameraTransform.rotation);
     }
 }
