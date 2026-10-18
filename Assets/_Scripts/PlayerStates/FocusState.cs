@@ -7,10 +7,14 @@ public class FocusState : PlayerState
 {
     private float _timeTilFocusComplete = 3.0f;
 
+    private Vector3 defaultPosition;
     private float _defaultFOV = 60.0f;
     private float _finalFOV = 40.0f;
 
+    private Vector3 _finalPosition;
+
     private float _targetFOV;
+    private Vector3 _targetPosition;
 
     private Tweener _zoomInTween;
     private Tweener _zoomOutTween;
@@ -19,14 +23,35 @@ public class FocusState : PlayerState
 
     private int _originalLookObjectCount = 0;
 
+    private float _currentValue = 0;
+
+    private int oldLookStackCount = 0;
+
     public override void EnterState(PlayerCharacterController characterController)
     {
         base.EnterState(characterController);
 
+        Camera.main.transform.localPosition = new Vector3(0.0f, 0.465f, 0.281f);
         Camera.main.fieldOfView = this._defaultFOV;
         this._targetFOV = Camera.main.fieldOfView;
+        this._targetPosition = Camera.main.transform.position;
 
-        this._zoomInTween = DOTween.To(() => this._targetFOV, x => this._targetFOV = x, this._finalFOV, this._timeTilFocusComplete);
+        this.defaultPosition = Camera.main.transform.position;
+
+        this.oldLookStackCount = this.characterController.lookObjectStack.Count;
+
+        if (this.characterController.lookObjectStack.Count > 0)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.x /= 2.0f;
+            mousePosition.y /= 2.0f;
+            mousePosition.z = 2.4f;            
+
+            this._finalPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            this._finalPosition.z = Camera.main.transform.position.z;            
+        }
+
+        this._zoomInTween = DOTween.To(() => this._currentValue, x => this._currentValue = x, 1.0f, this._timeTilFocusComplete);
 
         this._originalLookObjectCount = this.characterController.lookObjectStack.Count;
     }
@@ -36,15 +61,22 @@ public class FocusState : PlayerState
         base.ExitState();
         
         float currentFieldOfView = Camera.main.fieldOfView;
-        
-        this._zoomOutTween = DOTween.To(() => currentFieldOfView, x => currentFieldOfView = x, this._defaultFOV, 0.2f).OnUpdate(() =>
+
+        Vector3 currentPosition = Camera.main.transform.position;    
+
+        DOTween.To(() => currentFieldOfView, x => currentFieldOfView = x, this._defaultFOV, 0.2f).OnUpdate(() =>
         {
             Camera.main.fieldOfView = currentFieldOfView;
         });
+
+        if (this.characterController.lookObjectStack.Count == this.oldLookStackCount)
+        {
+            Camera.main.transform.DOMove(this.defaultPosition, 0.2f);
+        }
     }
 
     public override void UpdateState()
-    {
+    {               
         if (PlayerControlsManager.instance.IsHoldingLeftClick() == false)
         {
             this._zoomInTween.Kill();
@@ -70,7 +102,16 @@ public class FocusState : PlayerState
         }
         else if (Camera.main.fieldOfView > this._finalFOV)
         {
-            Camera.main.fieldOfView = this._targetFOV;
+            //Camera.main.fieldOfView = this._targetFOV;
+
+            Camera.main.fieldOfView = Mathf.Lerp(this._targetFOV, this._finalFOV, this._currentValue);
+            /*
+            if (this.characterController.lookObjectStack.Count > 0)
+            {
+                Camera.main.transform.position = Vector3.Lerp(this.defaultPosition, this._finalPosition, this._currentValue);
+            }
+            */
+
             this._doorOpenBuffer -= Time.deltaTime;
         }
         else

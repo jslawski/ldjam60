@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.UI;
 public class PlayerCharacterController : MonoBehaviour
 {
     private struct RaycastHitCheck
@@ -63,9 +63,15 @@ public class PlayerCharacterController : MonoBehaviour
     [SerializeField]
     private GameObject _hudCanvas;
 
+    [HideInInspector]
     public Stack<LookObject> lookObjectStack;
+    [HideInInspector]
     public Vector3 _cachedPlayerPosition;
+    [HideInInspector]
     public Quaternion _cachedPlayerRotation;
+
+    [SerializeField]
+    public Image _fadeImage;
 
     private void Awake()
     {
@@ -408,8 +414,11 @@ public class PlayerCharacterController : MonoBehaviour
             return;
         }
 
-        //Fade to black    
+        this._fadeImage.DOColor(Color.black, 0.2f).OnComplete(this.EnterLookObjectCallback);
+    }
 
+    private void EnterLookObjectCallback()
+    {
         LookObject latestLookObject = this.lookObjectStack.Peek();
 
         if (this.lookObjectStack.Count == 1)
@@ -417,17 +426,20 @@ public class PlayerCharacterController : MonoBehaviour
             this._cachedPlayerPosition = this.transform.position;
             this._cachedPlayerRotation = this._cameraTransform.rotation;//Quaternion.Euler(Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up));
         }
-        
-        this.transform.position = latestLookObject.lookScenePosition;        
+
+        this.transform.position = latestLookObject.lookScenePosition;
         this._cameraTransform.rotation = Quaternion.identity;
 
-        //Fade back in
+        this._fadeImage.DOColor(new Color(0.0f, 0.0f, 0.0f, 0.0f), 0.2f);
     }
 
     public void ExitLookTransform()
     {
-        //Fade to black
+        this._fadeImage.DOColor(Color.black, 0.2f).OnComplete(this.ExitLookObjectCallback);
+    }
 
+    private void ExitLookObjectCallback()
+    {
         this.lookObjectStack.Pop();
 
         if (this.lookObjectStack.Count > 0)
@@ -439,8 +451,8 @@ public class PlayerCharacterController : MonoBehaviour
         {
             this.ReturnToHouse();
         }
-        
-        //Fade back in
+
+        this._fadeImage.DOColor(new Color(0.0f, 0.0f, 0.0f, 0.0f), 0.2f);
     }
 
     private void ReturnToHouse()
