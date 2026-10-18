@@ -28,6 +28,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     [SerializeField]
     private GameObject _stickyNotePrefab;
+    [HideInInspector]
     public GameObject currentStickyNote;
     private float _stickyNoteZDistanceFromCamera = 0.25f;
     [HideInInspector]

@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BaseAnomaly : MonoBehaviour
+{
+    [SerializeField]
+    protected Collider _anomalyCollider;
+
+    [SerializeField]
+    public bool isActive = false;
+
+    protected virtual void Awake()
+    {       
+        this._anomalyCollider.enabled = false;
+        this.isActive = false;
+    }
+
+    public virtual void Activate()
+    {
+        this._anomalyCollider.enabled = true;
+        this.isActive = true;
+    }
+
+    public virtual void Deactivate()
+    { 
+        this._anomalyCollider.enabled = false;
+        this.isActive = false;
+    }
+
+    public virtual bool IsVisible()
+    { 
+        Vector3 viewportPosition = Camera.main.WorldToViewportPoint(this.transform.position);
+
+        return (viewportPosition.x >= 0.0f && viewportPosition.x <= 1.0f && viewportPosition.y >= 0.0f && viewportPosition.y <= 1.0f && viewportPosition.z > 0.0f);
+    }
+
+    public virtual bool IsAnomalyActive()
+    { 
+        BaseAnomaly[] allAnomalyComponents = GetComponentsInChildren<BaseAnomaly>();
+
+        foreach (BaseAnomaly anomalyComponent in allAnomalyComponents)
+        {
+            if (anomalyComponent.isActive == true)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
