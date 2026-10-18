@@ -20,6 +20,13 @@ public class StickyNote : MonoBehaviour
     
     private bool _prepared = false;
 
+    private Collider _collider;
+
+    private void Awake()
+    {
+        this._collider = GetComponent<Collider>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,23 +36,33 @@ public class StickyNote : MonoBehaviour
     public void PrepareToDraw()
     {
         this.gameObject.layer = LayerMask.NameToLayer("StickyNote");
+        this._collider.enabled = false;
+        this._prepared = false;
+        StopAllCoroutines();
+        StartCoroutine(InitialiizeStickyNote());
+    }
 
-        Invoke("StickyNoteInitialized", 0.5f);
+    private IEnumerator InitialiizeStickyNote()
+    {
+        yield return new WaitForSeconds(0.5f);
+        this._collider.enabled = true;
+        
+        this._prepared = true;
     }
 
     public void SetToPlacing()
     {
+        this._collider.enabled = false;
         this._prepared = false;
     }
 
-    private void StickyNoteInitialized()
+    public void PostNote(Vector3 targetPosition, Vector3 targetForward)
     {
-        this._prepared = true;
-    }
-
-    public void PostNote()
-    {
+        this.transform.position = targetPosition;
+        this.transform.forward = targetForward;
+    
         this.gameObject.layer = LayerMask.NameToLayer("PostedNote");
+        this._collider.enabled = true;    
         this._prepared = false;
     }
 

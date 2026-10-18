@@ -30,6 +30,10 @@ public class PlayerCharacterController : MonoBehaviour
     private GameObject _stickyNotePrefab;
     public GameObject currentStickyNote;
     private float _stickyNoteZDistanceFromCamera = 0.25f;
+    [HideInInspector]
+    public Vector3 stickyNoteTargetPosition = Vector3.zero;
+    [HideInInspector]
+    public Vector3 stickyNoteTargetForward = Vector3.zero;
 
     [SerializeField]
     private GameObject _discardedStickyNotePrefab;
@@ -208,6 +212,11 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void InstantiateStickyNote()
     {
+        if (this.currentStickyNote != null)
+        {
+            return;
+        }
+
         Vector3 instantiationPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._stickyNoteZDistanceFromCamera) - this._cameraTransform.up;
         Quaternion instantiationRotation = Quaternion.Euler(this._cameraTransform.rotation.eulerAngles.x, this._cameraTransform.rotation.eulerAngles.y, this._cameraTransform.rotation.eulerAngles.z);
         
@@ -218,6 +227,11 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void HoldObject(GameObject targetObject)
     {
+        if (this._heldObject != null)
+        {
+            this.PutObjectBack();
+        }
+
         this._heldObject = targetObject;
     
         this._cachedObjectPosition = targetObject.transform.position;
@@ -225,6 +239,9 @@ public class PlayerCharacterController : MonoBehaviour
     
         Vector3 targetPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._stickyNoteZDistanceFromCamera);
         Quaternion targetRotation = this._cameraTransform.rotation;
+
+        //targetObject.transform.position = targetPosition;
+        //targetObject.transform.rotation = targetRotation;
 
         targetObject.transform.DOMove(targetPosition, 0.4f).SetEase(Ease.OutExpo);
         targetObject.transform.DORotateQuaternion(targetRotation, 0.4f);
@@ -242,13 +259,15 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void AttemptPostStickyNote()
     {
+        this.UpdateStickyNoteCurrentPosition();
+
         if (this._hitCheck.success == true)
         {
-            this.currentStickyNote.GetComponent<StickyNote>().PostNote();
+            this.currentStickyNote.transform.DOKill();
+            this.currentStickyNote.GetComponent<StickyNote>().PostNote(this.stickyNoteTargetPosition, this.stickyNoteTargetForward);
             this.currentStickyNote = null;
+            this._heldObject = null;
         }
-
-        this._heldObject = null;
     }
 
     public void UpdateStickyNoteCurrentPosition()
@@ -257,14 +276,17 @@ public class PlayerCharacterController : MonoBehaviour
 
         if (this._hitCheck.success == true)
         {
-            this.currentStickyNote.transform.position = this._hitCheck.hitInfo.point + (this._hitCheck.hitInfo.normal * this._placementOffset);
-            this.currentStickyNote.transform.forward = -this._hitCheck.hitInfo.normal;
+            this.stickyNoteTargetPosition = this._hitCheck.hitInfo.point + (this._hitCheck.hitInfo.normal * this._placementOffset);
+            this.stickyNoteTargetForward = -this._hitCheck.hitInfo.normal;
         }
         else
         {
-            this.currentStickyNote.transform.position = this._cameraTransform.position + (this._cameraTransform.forward * this._raycastMaxDistance);
-            this.currentStickyNote.transform.forward = this._cameraTransform.forward;
+            this.stickyNoteTargetPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._raycastMaxDistance);
+            this.stickyNoteTargetForward = this._cameraTransform.forward;
         }
+
+        this.currentStickyNote.transform.position = this.stickyNoteTargetPosition;
+        this.currentStickyNote.transform.forward = this.stickyNoteTargetForward;
     }
 
     public void DiscardStickyNote()
@@ -285,7 +307,7 @@ public class PlayerCharacterController : MonoBehaviour
     {
         this.CastCameraRay(this._postedNoteLayer);
 
-        if (this._hitCheck.success == true)
+        if (this._hitCheck.success == true && this.currentStickyNote == null)
         {
             this.currentStickyNote = this._hitCheck.hitInfo.collider.gameObject;
             this.currentStickyNote.GetComponent<StickyNote>().PrepareToDraw();
