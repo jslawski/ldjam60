@@ -350,13 +350,14 @@ public class PlayerCharacterController : MonoBehaviour
     private void CastMouseRay(LayerMask targetLayer)
     {
         Vector3 mouseWorldPosition = Input.mousePosition;
-        mouseWorldPosition.z = 2.2f;
+        //mouseWorldPosition.z = 2.0f;
         mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseWorldPosition);
 
-        Debug.DrawLine(mouseWorldPosition, Camera.main.transform.forward * 100.0f, Color.red);
+        Debug.DrawLine(mouseWorldPosition, Camera.main.transform.forward * 100.0f, Color.red, 5.0f);
 
+        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(mouseWorldPosition, Camera.main.transform.forward, out this._hitCheck.hitInfo, 100.0f, targetLayer) == true)
+        if (Physics.Raycast(mouseRay, out this._hitCheck.hitInfo, 100.0f, targetLayer) == true)
         {
             this._hitCheck.success = true;
         }

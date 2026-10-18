@@ -10,7 +10,7 @@ public class LookPlaceState : PlayerState
 
         Cursor.visible = false;
 
-        this.characterController.currentStickyNote.GetComponent<StickyNote>().SetToPlacing();
+        this.characterController.currentStickyNote.GetComponent<StickyNote>().SetToPlacing();      
     }
 
     public override void UpdateState()

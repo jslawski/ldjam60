@@ -11,7 +11,7 @@ public class MoveState : PlayerState
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        this.characterController.EnableHUD();
+        this.characterController.EnableHUD();        
     }
 
     public override void ExitState()

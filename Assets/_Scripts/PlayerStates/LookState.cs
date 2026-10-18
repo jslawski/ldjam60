@@ -11,7 +11,7 @@ public class LookState : PlayerState
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
-        this.characterController.DisableHUD();
+        this.characterController.DisableHUD();        
     }
 
     public override void UpdateState()

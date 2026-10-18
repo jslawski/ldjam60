@@ -13,7 +13,7 @@ public class DrawState : PlayerState
 
         this.characterController.currentStickyNote.GetComponent<StickyNote>().PrepareToDraw();
 
-        this.characterController.DisableHUD();
+        this.characterController.DisableHUD();        
     }
 
     public override void UpdateState()
@@ -40,7 +40,16 @@ public class DrawState : PlayerState
 
         if (this.characterController.currentStickyNote == null)
         {
-            this.characterController.ChangeState(new MoveState());
+            if (this.characterController.lookObjectStack.Count > 0)
+            {
+                this.characterController.ChangeState(new LookState());
+            }
+            else 
+            {
+                this.characterController.ChangeState(new MoveState());
+            }
+
+            
         }
     }
 }
