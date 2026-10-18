@@ -14,11 +14,13 @@ public class MaterialAnomaly : BaseAnomaly
 
     public override void Activate()
     {
+        base.Activate();
         this._changingRenderer.material = this._anomalyMaterial;
     }
 
     public override void Deactivate()
     {
+        base.Deactivate();
         this._changingRenderer.material = this._defaultMaterial;
     }
 }

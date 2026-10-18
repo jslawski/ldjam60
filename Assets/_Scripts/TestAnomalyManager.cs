@@ -6,6 +6,7 @@ using System;
 
 public class TestAnomalyManager : MonoBehaviour
 {
+    [SerializeField]
     private BaseAnomaly[] _allAnomalyObjects;
 
     [SerializeField]
@@ -60,7 +61,7 @@ public class TestAnomalyManager : MonoBehaviour
             }
         }
 
-        Debug.LogError("ALL OBJECTS ARE HIDDEN!");
+        //Debug.LogError("ALL OBJECTS ARE HIDDEN!");
 
         return true;
     }

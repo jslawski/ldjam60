@@ -29,6 +29,11 @@ public class MoveState : PlayerState
             this.characterController.TryPickupStickyNote();
 
             //Also check for door opens here
+
+            if (this.characterController.currentStickyNote == null)
+            {
+                this.characterController.ChangeState(new FocusState());
+            }            
         }
         
         if (PlayerControlsManager.instance.spacePressInitiated == true)

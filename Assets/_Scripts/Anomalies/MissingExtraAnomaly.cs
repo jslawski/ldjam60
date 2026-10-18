@@ -27,11 +27,13 @@ public class MissingExtraAnomaly : BaseAnomaly
 
     public override void Activate()
     {
+        base.Activate();
         this.DisableAllRenderers();
     }
 
     public override void Deactivate()
     {
+        base.Deactivate();
         this.EnableAllRenderers();
     }
 

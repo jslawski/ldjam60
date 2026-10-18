@@ -50,6 +50,8 @@ public class PlayerCharacterController : MonoBehaviour
     private LayerMask _raycastLayer;
     [SerializeField]
     private LayerMask _postedNoteLayer;
+    [SerializeField]
+    private LayerMask _anomalyCheckLayer;
 
     private RaycastHitCheck _hitCheck = new RaycastHitCheck();
     private float _raycastMaxDistance = 3.0f;
@@ -329,6 +331,32 @@ public class PlayerCharacterController : MonoBehaviour
         else
         {
             this._hitCheck.success = false;
+        }
+    }
+
+    public void AttemptAnomalyFix()
+    {
+        this.CastCameraRay(this._anomalyCheckLayer);
+        
+        if (this._hitCheck.success == true)
+        {
+            if (this._hitCheck.hitInfo.collider.tag == "Anomaly")
+            {
+                this.FixAnomaly(this._hitCheck.hitInfo.collider.gameObject);        
+            }
+        }
+    }
+
+    private void FixAnomaly(GameObject targetObject)
+    {
+        BaseAnomaly[] anomalyComponents = targetObject.GetComponentsInParent<BaseAnomaly>();
+
+        foreach (BaseAnomaly anomaly in anomalyComponents)
+        {
+            if (anomaly.isActive == true)
+            {
+                anomaly.Deactivate();
+            }
         }
     }
 

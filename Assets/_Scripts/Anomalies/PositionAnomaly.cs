@@ -31,6 +31,7 @@ public class PositionAnomaly : BaseAnomaly
         this.transform.position = this._anomalyPosition;
         this.transform.rotation = Quaternion.Euler(this._anomalyRotation);
         this._oldPositionCollider.enabled = true;
+        this._oldPositionCollider.gameObject.transform.position = this._defaultPosition;
     }
 
     public override void Deactivate() 

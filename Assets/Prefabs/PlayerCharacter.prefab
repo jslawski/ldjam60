@@ -81,10 +81,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7915d50d2e76ba34cac522a3abd894f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxMoveVelocity: 15
+  _maxMoveVelocity: 3
   _stickyNotePrefab: {fileID: 4979515923501716167, guid: 659831666f275dd4bbdd639bc2373181,
     type: 3}
   currentStickyNote: {fileID: 0}
+  stickyNoteTargetPosition: {x: 0, y: 0, z: 0}
+  stickyNoteTargetForward: {x: 0, y: 0, z: 0}
   _discardedStickyNotePrefab: {fileID: 3827021974903191462, guid: 6cf4da2e62843ac4d9dc03379a6d72e2,
     type: 3}
   _raycastLayer:
@@ -93,6 +95,9 @@ MonoBehaviour:
   _postedNoteLayer:
     serializedVersion: 2
     m_Bits: 256
+  _anomalyCheckLayer:
+    serializedVersion: 2
+    m_Bits: 513
   _hudCanvas: {fileID: 5622791213192279048}
 --- !u!54 &1064124791093711115
 Rigidbody:
