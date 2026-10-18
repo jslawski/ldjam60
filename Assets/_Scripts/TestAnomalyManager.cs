@@ -85,7 +85,7 @@ public class TestAnomalyManager : MonoBehaviour
         {
             if (anomaly.IsAnomalyActive() == true)
             {
-                Debug.LogError(anomaly.gameObject.name + " IS ACTIVE!");
+                //Debug.LogError(anomaly.gameObject.name + " IS ACTIVE!");
                 return true;
             }
         }

@@ -21,8 +21,6 @@ public class PlayerCharacterController : MonoBehaviour
     private Coroutine _moveLerpCoroutine = null;
 
     private Quaternion _targetRotation = Quaternion.identity;
-    private float _cameraRotateSpeed = 12.0f;
-    private Coroutine _cameraSlerpCoroutine = null;
 
     private float _maxVerticalAngle = 90.0f;
 
@@ -51,20 +49,30 @@ public class PlayerCharacterController : MonoBehaviour
     [SerializeField]
     private LayerMask _postedNoteLayer;
     [SerializeField]
+    private LayerMask _lookObjectLayer;
+    [SerializeField]
     private LayerMask _anomalyCheckLayer;
 
     private RaycastHitCheck _hitCheck = new RaycastHitCheck();
     private float _raycastMaxDistance = 3.0f;
+    private float _closeRaycastDistance = 2.0f;
+    private float _lookRaycastDistance = 100.0f;
 
     private float _placementOffset = 0.0011f;
 
     [SerializeField]
     private GameObject _hudCanvas;
 
+    public Stack<LookObject> lookObjectStack;
+    public Vector3 _cachedPlayerPosition;
+    public Quaternion _cachedPlayerRotation;
+
     private void Awake()
     {
         this._cameraTransform = Camera.main.transform;
         this._playerRigidbody = GetComponent<Rigidbody>();
+
+        this.lookObjectStack = new Stack<LookObject>();
     }
 
     private void Start()
@@ -119,32 +127,6 @@ public class PlayerCharacterController : MonoBehaviour
         this._cameraTransform.rotation = this._targetRotation;
 
         return;
-
-        if (this._cameraSlerpCoroutine != null)
-        {
-            StopCoroutine(this._cameraSlerpCoroutine);
-        }
-
-        this._cameraSlerpCoroutine = StartCoroutine(this.LerpToTargetRotation());
-    }
-
-    private IEnumerator LerpToTargetRotation()
-    {
-        while (this._cameraTransform.rotation != this._targetRotation)
-        {
-            this._cameraTransform.rotation = Quaternion.Lerp(this._cameraTransform.rotation, this._targetRotation, this._cameraRotateSpeed * Time.fixedDeltaTime);
-
-            if (this._cameraTransform.rotation.eulerAngles.y > 360)
-            {
-                this._cameraTransform.rotation = Quaternion.Euler(this._cameraTransform.rotation.eulerAngles.x, (this._cameraTransform.rotation.eulerAngles.y - 360.0f), this._cameraTransform.rotation.eulerAngles.z);
-            }
-            else if (this._cameraTransform.rotation.eulerAngles.y < -360)
-            {
-                this._cameraTransform.rotation = Quaternion.Euler(this._cameraTransform.rotation.eulerAngles.x, (this._cameraTransform.rotation.eulerAngles.y + 360.0f), this._cameraTransform.rotation.eulerAngles.z);
-            }
-
-            yield return new WaitForFixedUpdate();
-        }
     }
 
     public void UpdateLateralVelocity()
@@ -275,8 +257,15 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void UpdateStickyNoteCurrentPosition()
     {
-        this.CastCameraRay(this._raycastLayer);
-
+        if (this.lookObjectStack.Count > 0)
+        {
+            this.CastMouseRay(this._raycastLayer);
+        }
+        else
+        {
+            this.CastCameraRay(this._raycastLayer, this._raycastMaxDistance);
+        }
+        
         if (this._hitCheck.success == true)
         {
             this.stickyNoteTargetPosition = this._hitCheck.hitInfo.point + (this._hitCheck.hitInfo.normal * this._placementOffset);
@@ -308,8 +297,15 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void TryPickupStickyNote()
     {
-        this.CastCameraRay(this._postedNoteLayer);
-
+        if (this.lookObjectStack.Count > 0)
+        {
+            this.CastMouseRay(this._postedNoteLayer);
+        }
+        else
+        {
+            this.CastCameraRay(this._postedNoteLayer, this._raycastMaxDistance);
+        }
+        
         if (this._hitCheck.success == true && this.currentStickyNote == null)
         {
             this.currentStickyNote = this._hitCheck.hitInfo.collider.gameObject;
@@ -318,13 +314,49 @@ public class PlayerCharacterController : MonoBehaviour
         }        
     }
 
-    private void CastCameraRay(LayerMask targetLayer)
+    public void TryGetLookObject()
+    {
+        if (this.lookObjectStack.Count > 0)
+        {
+            this.CastMouseRay(this._lookObjectLayer);
+        }
+        else 
+        {
+            this.CastCameraRay(this._lookObjectLayer, this._closeRaycastDistance);
+        }
+        
+        if (this._hitCheck.success == true)
+        {
+            this.lookObjectStack.Push(this._hitCheck.hitInfo.collider.gameObject.GetComponentInParent<LookObject>());
+        }
+    }
+
+    private void CastCameraRay(LayerMask targetLayer, float raycastDistance)
     {
         Ray cameraRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         this._hitCheck = new RaycastHitCheck();
 
 
-        if (Physics.Raycast(cameraRay, out _hitCheck.hitInfo, this._raycastMaxDistance, targetLayer) == true)
+        if (Physics.Raycast(cameraRay, out this._hitCheck.hitInfo, raycastDistance, targetLayer) == true)
+        {
+            this._hitCheck.success = true;
+        }
+        else
+        {
+            this._hitCheck.success = false;
+        }
+    }
+
+    private void CastMouseRay(LayerMask targetLayer)
+    {
+        Vector3 mouseWorldPosition = Input.mousePosition;
+        mouseWorldPosition.z = 2.2f;
+        mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseWorldPosition);
+
+        Debug.DrawLine(mouseWorldPosition, Camera.main.transform.forward * 100.0f, Color.red);
+
+
+        if (Physics.Raycast(mouseWorldPosition, Camera.main.transform.forward, out this._hitCheck.hitInfo, 100.0f, targetLayer) == true)
         {
             this._hitCheck.success = true;
         }
@@ -336,7 +368,14 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void AttemptAnomalyFix()
     {
-        this.CastCameraRay(this._anomalyCheckLayer);
+        if (this.lookObjectStack.Count > 0)
+        {
+            this.CastMouseRay(this._anomalyCheckLayer);    
+        }
+        else
+        {
+            this.CastCameraRay(this._anomalyCheckLayer, this._raycastMaxDistance);
+        }
         
         if (this._hitCheck.success == true)
         {
@@ -358,6 +397,60 @@ public class PlayerCharacterController : MonoBehaviour
                 anomaly.Deactivate();
             }
         }
+    }
+
+    public void EnterLookTransform()
+    {
+        if (this.lookObjectStack.Count <= 0)
+        {
+            Debug.LogError("No current look objects");
+            return;
+        }
+
+        //Fade to black    
+
+        LookObject latestLookObject = this.lookObjectStack.Peek();
+
+        if (this.lookObjectStack.Count == 1)
+        {
+            this._cachedPlayerPosition = this.transform.position;
+            this._cachedPlayerRotation = this._cameraTransform.rotation;//Quaternion.Euler(Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up));
+        }
+        
+        this.transform.position = latestLookObject.lookScenePosition;        
+        this._cameraTransform.rotation = Quaternion.identity;
+
+        //Fade back in
+    }
+
+    public void ExitLookTransform()
+    {
+        //Fade to black
+
+        this.lookObjectStack.Pop();
+
+        if (this.lookObjectStack.Count > 0)
+        {
+            Vector3 previousPosition = this.lookObjectStack.Peek().lookScenePosition;
+            this.transform.position = previousPosition;
+        }
+        else
+        {
+            this.ReturnToHouse();
+        }
+        
+        //Fade back in
+    }
+
+    private void ReturnToHouse()
+    {
+        this.transform.position = this._cachedPlayerPosition;
+        this._cameraTransform.rotation = this._cachedPlayerRotation;        
+
+        this._cachedPlayerPosition = Vector3.zero;
+        this._cachedPlayerRotation = Quaternion.identity;
+
+        this.ChangeState(new MoveState());
     }
 
     public void EnableHUD()

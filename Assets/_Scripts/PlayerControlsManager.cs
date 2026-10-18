@@ -16,6 +16,8 @@ public class PlayerControlsManager : MonoBehaviour
     public bool rightClickInitiated = false;
     [HideInInspector]
     public bool spacePressInitiated = false;
+    [HideInInspector]
+    public bool backPressInitiated = false;
 
     private static float mouseSensitivity = 0.25f;
 
@@ -36,6 +38,7 @@ public class PlayerControlsManager : MonoBehaviour
         this._playerControls.PlayerMap.LeftClick.performed += this.ExecuteLeftClick;
         this._playerControls.PlayerMap.RightClick.performed += this.ExecuteRightClick;
         this._playerControls.PlayerMap.Space.performed += this.ExecuteSpace;
+        this._playerControls.PlayerMap.Back.performed += this.ExecuteBack;
     }
     private void OnEnable()
     {
@@ -99,6 +102,11 @@ public class PlayerControlsManager : MonoBehaviour
         this.spacePressInitiated = true;
     }
 
+    private void ExecuteBack(InputAction.CallbackContext context)
+    {
+        this.backPressInitiated = true;
+    }
+
     public void UpdateMouseSensitivity(float value)
     {
         PlayerControlsManager.mouseSensitivity = value;
@@ -109,5 +117,6 @@ public class PlayerControlsManager : MonoBehaviour
         this.leftClickInitiated = false;
         this.rightClickInitiated = false;
         this.spacePressInitiated = false;
+        this.backPressInitiated = false;
     }
 }

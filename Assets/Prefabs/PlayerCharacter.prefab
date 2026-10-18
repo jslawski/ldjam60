@@ -95,10 +95,15 @@ MonoBehaviour:
   _postedNoteLayer:
     serializedVersion: 2
     m_Bits: 256
+  _lookObjectLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   _anomalyCheckLayer:
     serializedVersion: 2
     m_Bits: 513
   _hudCanvas: {fileID: 5622791213192279048}
+  _cachedPlayerPosition: {x: 0, y: 0, z: 0}
+  _cachedPlayerRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!54 &1064124791093711115
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,6 +147,7 @@ MonoBehaviour:
   leftClickInitiated: 0
   rightClickInitiated: 0
   spacePressInitiated: 0
+  backPressInitiated: 0
   characterController: {fileID: 3719269813910076307}
 --- !u!1 &5622791213192279048
 GameObject:

@@ -15,6 +15,10 @@ public class FocusState : PlayerState
     private Tweener _zoomInTween;
     private Tweener _zoomOutTween;
 
+    private float _doorOpenBuffer = 0.5f;
+
+    private int _originalLookObjectCount = 0;
+
     public override void EnterState(PlayerCharacterController characterController)
     {
         base.EnterState(characterController);
@@ -23,6 +27,8 @@ public class FocusState : PlayerState
         this._targetFOV = Camera.main.fieldOfView;
 
         this._zoomInTween = DOTween.To(() => this._targetFOV, x => this._targetFOV = x, this._finalFOV, this._timeTilFocusComplete);
+
+        this._originalLookObjectCount = this.characterController.lookObjectStack.Count;
     }
 
     public override void ExitState()
@@ -42,15 +48,46 @@ public class FocusState : PlayerState
         if (PlayerControlsManager.instance.IsHoldingLeftClick() == false)
         {
             this._zoomInTween.Kill();
-            this.characterController.ChangeState(new MoveState());
+
+            if (this._doorOpenBuffer > 0.0f)
+            {
+                this.characterController.TryGetLookObject();
+
+                if (this.characterController.lookObjectStack.Count > this._originalLookObjectCount)
+                {
+                    this.characterController.ChangeState(new LookState());
+                    this.characterController.EnterLookTransform();
+                }
+                else
+                {
+                    this.RevertToPreviousState();
+                }
+            }
+            else
+            {
+                this.RevertToPreviousState();
+            }
         }
         else if (Camera.main.fieldOfView > this._finalFOV)
         {
             Camera.main.fieldOfView = this._targetFOV;
+            this._doorOpenBuffer -= Time.deltaTime;
         }
         else
         {
             this.characterController.AttemptAnomalyFix();
+            this.RevertToPreviousState();
+        }
+    }
+
+    private void RevertToPreviousState()
+    {
+        if (this.characterController.lookObjectStack.Count > 0)
+        {
+            this.characterController.ChangeState(new LookState());
+        }
+        else
+        {
             this.characterController.ChangeState(new MoveState());
         }
     }

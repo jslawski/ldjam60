@@ -26,8 +26,16 @@ public class DrawState : PlayerState
 
         if (PlayerControlsManager.instance.spacePressInitiated == true)
         {
-            PlayerControlsManager.instance.spacePressInitiated = false;    
-            this.characterController.ChangeState(new PlaceState());
+            PlayerControlsManager.instance.spacePressInitiated = false;
+
+            if (this.characterController.lookObjectStack.Count > 0)
+            {
+                this.characterController.ChangeState(new LookPlaceState());                
+            }
+            else
+            {
+                this.characterController.ChangeState(new PlaceState());
+            }
         }
 
         if (this.characterController.currentStickyNote == null)
