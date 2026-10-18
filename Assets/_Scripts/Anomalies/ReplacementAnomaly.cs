@@ -5,33 +5,32 @@ using UnityEngine;
 public class ReplacementAnomaly : BaseAnomaly
 {
     [SerializeField]
-    private MeshRenderer _originalRenderer;
+    private GameObject _originalObject;
 
     [SerializeField]
-    private MeshRenderer _anomalyRenderer;
+    private GameObject _replacementObject;
 
     protected override void Awake()
     {
         base.Awake();
 
-        this._originalRenderer.enabled = true;
-        this._anomalyRenderer.enabled = false;
+        this._originalObject.SetActive(true);
+        this._replacementObject.SetActive(false);
     }
 
     public override void Activate()
     {
         base.Activate();
 
-        this._originalRenderer.enabled = false;
-        this._anomalyRenderer.enabled = true;
-        
+        this._originalObject.SetActive(false);
+        this._replacementObject.SetActive(true);
     }
 
     public override void Deactivate()
     {
         base.Deactivate();
 
-        this._originalRenderer.enabled = true;
-        this._anomalyRenderer.enabled = false;
+        this._originalObject.SetActive(true);
+        this._replacementObject.SetActive(false);
     }
 }

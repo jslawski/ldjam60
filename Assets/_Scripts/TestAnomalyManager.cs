@@ -29,7 +29,7 @@ public class TestAnomalyManager : MonoBehaviour
             this._startupTime -= Time.deltaTime;
         }
 
-        this._tutorialLabel.text = "Study the Objects..." + "\n" + Math.Round(this._startupTime, 2).ToString() + "s";
+        this._tutorialLabel.text = "Study the Objects..." + "\n" + Math.Round(this._startupTime, 1).ToString() + "s";
 
         if (this._startupTime > 0.0f)
         {
