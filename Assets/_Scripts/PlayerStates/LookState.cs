@@ -16,6 +16,16 @@ public class LookState : PlayerState
 
     public override void UpdateState()
     {
+        /*
+        Vector3 newCameraPosition = Input.mousePosition;
+        newCameraPosition.z = 1.0f;
+
+        newCameraPosition = Camera.main.ScreenToWorldPoint(newCameraPosition);
+        newCameraPosition.z = Camera.main.transform.position.z;
+
+        Camera.main.transform.position = newCameraPosition;
+        */
+
         if (PlayerControlsManager.instance.leftClickInitiated == true)
         {
             PlayerControlsManager.instance.leftClickInitiated = false;

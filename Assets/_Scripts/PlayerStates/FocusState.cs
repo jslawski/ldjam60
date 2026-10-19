@@ -27,11 +27,12 @@ public class FocusState : PlayerState
 
     private int oldLookStackCount = 0;
 
+    private Vector3 _defaultLocalPosition = new Vector3(0.0f, 0.465f, 0.281f);
+
     public override void EnterState(PlayerCharacterController characterController)
     {
         base.EnterState(characterController);
-
-        Camera.main.transform.localPosition = new Vector3(0.0f, 0.465f, 0.281f);
+        
         Camera.main.fieldOfView = this._defaultFOV;
         this._targetFOV = Camera.main.fieldOfView;
         this._targetPosition = Camera.main.transform.position;
@@ -42,10 +43,8 @@ public class FocusState : PlayerState
 
         if (this.characterController.lookObjectStack.Count > 0)
         {
-            Vector3 mousePosition = Input.mousePosition;
-            mousePosition.x /= 2.0f;
-            mousePosition.y /= 2.0f;
-            mousePosition.z = 2.4f;            
+            Vector3 mousePosition = Input.mousePosition;            
+            mousePosition.z = 1.0f;            
 
             this._finalPosition = Camera.main.ScreenToWorldPoint(mousePosition);
             this._finalPosition.z = Camera.main.transform.position.z;            
@@ -71,7 +70,7 @@ public class FocusState : PlayerState
 
         if (this.characterController.lookObjectStack.Count == this.oldLookStackCount)
         {
-            Camera.main.transform.DOMove(this.defaultPosition, 0.2f);
+            Camera.main.transform.DOLocalMove(this._defaultLocalPosition, 0.2f);
         }
     }
 
@@ -105,12 +104,11 @@ public class FocusState : PlayerState
             //Camera.main.fieldOfView = this._targetFOV;
 
             Camera.main.fieldOfView = Mathf.Lerp(this._targetFOV, this._finalFOV, this._currentValue);
-            /*
+            
             if (this.characterController.lookObjectStack.Count > 0)
             {
                 Camera.main.transform.position = Vector3.Lerp(this.defaultPosition, this._finalPosition, this._currentValue);
-            }
-            */
+            }            
 
             this._doorOpenBuffer -= Time.deltaTime;
         }
