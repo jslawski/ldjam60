@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class InteractMilk : InteractObject
 {
-    public GameObject cookies;
-    
+    public GameObject cookiesNote;
+    public GameObject cookiesCompleteNote;
+    public GameObject findIntruderNote;
 
     public override void Interact()
     {
         base.Interact();
 
-        this.cookies.SetActive(true);
+        this.cookiesNote.SetActive(false);
+        this.cookiesCompleteNote.SetActive(true);
+        this.findIntruderNote.SetActive(true);
+
         this.gameObject.SetActive(false);
 
         AnomalyManager.instance.ForceNextScriptedAnomaly();

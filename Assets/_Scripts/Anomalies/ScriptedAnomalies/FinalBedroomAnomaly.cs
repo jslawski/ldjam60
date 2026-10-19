@@ -32,13 +32,16 @@ public class FinalBedroomAnomaly : ScriptedAnomaly
 
         this._characterController.currentTextSequence = this._anomalyTextSequence;
         this._characterController.ChangeState(new ReadState());
+
+        MusicManager.instance.StopAll();
     }
 
     public override void Activate()
     {
         base.Activate();
         this.finalBedroomObject.SetActive(true);
-        this.finalPhoneTrigger.SetActive(true);
+
+        AnomalyManager.instance.ForceNextScriptedAnomaly();
     }
 
     public override void Deactivate()
@@ -59,5 +62,7 @@ public class FinalBedroomAnomaly : ScriptedAnomaly
 
         this._characterController.currentTextSequence = this.voidTextSequence;
         this._characterController.ChangeState(new ReadState());
+
+        MusicManager.instance.AddDistress();
     }
 }

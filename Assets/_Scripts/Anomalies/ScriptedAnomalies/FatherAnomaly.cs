@@ -25,6 +25,9 @@ public class FatherAnomaly : ScriptedAnomaly
         AnomalyManager.instance.StartAnomalyHunt(5);
         AnomalyManager.instance.RefillPills();
         this.pillsObject.SetActive(false);
+
+        MusicManager.instance.AddDistress();
+
         StartCoroutine(this.DadDialogue());
     }
 

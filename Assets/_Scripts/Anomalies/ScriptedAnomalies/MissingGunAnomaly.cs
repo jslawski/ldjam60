@@ -20,6 +20,8 @@ public class MissingGunAnomaly : ScriptedAnomaly
 
             TextSequenceManager.instance.StartTextSequence(this._anomalyTextSequence);
 
+            MusicManager.instance.PlayPlace();
+            MusicManager.instance.AddDistress();
             
             this.Deactivate();
         }

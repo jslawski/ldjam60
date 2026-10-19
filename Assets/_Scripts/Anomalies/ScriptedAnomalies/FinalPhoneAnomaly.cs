@@ -24,6 +24,9 @@ public class FinalPhoneAnomaly : ScriptedAnomaly
             this.StartSequence();
             this.Deactivate();
         }
+
+        MusicManager.instance.RemoveDistress();
+        MusicManager.instance.PlayFeeling();
     }
 
     public override void StartSequence()

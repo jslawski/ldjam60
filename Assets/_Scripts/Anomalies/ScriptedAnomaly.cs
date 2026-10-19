@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScriptedAnomaly : MonoBehaviour
-{
-    [SerializeField]
+{    
     protected Collider _anomalyCollider;
 
     protected virtual void Awake()
     {
+        this._anomalyCollider = GetComponent<Collider>();
         this._anomalyCollider.enabled = false;
     }
 

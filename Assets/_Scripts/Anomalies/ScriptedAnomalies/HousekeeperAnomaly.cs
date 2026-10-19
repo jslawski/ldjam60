@@ -11,6 +11,7 @@ public class HousekeeperAnomaly : ScriptedAnomaly
     public TextSequence textSequence;
     public GameObject pillsObject;
     public GameObject findMedsNote;
+    public GameObject findMedsNoteComplete;
     public GameObject bakeCookiesNote;
     public InteractObject cookiesIngredients;
 
@@ -38,7 +39,8 @@ public class HousekeeperAnomaly : ScriptedAnomaly
 
         this.ladyObject.SetActive(false);
         this.pillsObject.SetActive(true);
-        this.findMedsNote.SetActive(true);
+        this.findMedsNote.SetActive(false);
+        this.findMedsNoteComplete.SetActive(true);
         this.bakeCookiesNote.SetActive(true);
         this.cookiesIngredients.enabled = true;
 

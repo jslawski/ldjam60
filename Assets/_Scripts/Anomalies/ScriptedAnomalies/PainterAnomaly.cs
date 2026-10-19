@@ -9,6 +9,10 @@ public class PainterAnomaly : ScriptedAnomaly
     [SerializeField]
     private TextSequence _anomalyTextSequence;
 
+    public GameObject findIntruderNote;
+    public GameObject findIntruderComplete;
+    public GameObject tidyUpNote;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -16,6 +20,14 @@ public class PainterAnomaly : ScriptedAnomaly
             this._characterController = other.gameObject.GetComponentInParent<PlayerCharacterController>();
 
             this.StartSequence();
+
+            this.findIntruderNote.SetActive(false);
+            this.findIntruderNote.SetActive(true);
+            this.tidyUpNote.SetActive(true);
+
+            MusicManager.instance.RemoveDistress();
+            MusicManager.instance.PlayPlace();
+
             this.Deactivate();
         }
     }

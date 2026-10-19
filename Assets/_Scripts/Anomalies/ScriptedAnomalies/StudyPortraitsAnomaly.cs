@@ -5,6 +5,7 @@ using UnityEngine;
 public class StudyPortraitsAnomaly : ScriptedAnomaly
 {
     public GameObject whiteFigure;
+    public GameObject painter;
 
     public override void StartSequence()
     {
@@ -17,6 +18,7 @@ public class StudyPortraitsAnomaly : ScriptedAnomaly
     {
         base.Activate();
         this.whiteFigure.SetActive(true);
+        this.painter.SetActive(false);
     }
 
     public override void Deactivate()
