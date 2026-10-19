@@ -75,6 +75,8 @@ public class PlayerCharacterController : MonoBehaviour
 
     public TextSequence currentTextSequence;
 
+    public Ray lastRay;
+
     private void Awake()
     {
         this._cameraTransform = Camera.main.transform;
@@ -373,11 +375,19 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
-    private void CastCameraRay(LayerMask targetLayer, float raycastDistance)
+    private void CastCameraRay(LayerMask targetLayer, float raycastDistance, bool useLastRay = false)
     {
-        Ray cameraRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        Ray cameraRay = new Ray(Camera.main.transform.position - (Camera.main.transform.forward * 2.0f), Camera.main.transform.forward);
         this._hitCheck = new RaycastHitCheck();
 
+        if (useLastRay == true)
+        {
+            cameraRay = lastRay;
+        }
+
+
+
+        this.lastRay = cameraRay;
 
         if (Physics.Raycast(cameraRay, out this._hitCheck.hitInfo, raycastDistance, targetLayer) == true)
         {
@@ -389,15 +399,24 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
-    private void CastMouseRay(LayerMask targetLayer)
+    private void CastMouseRay(LayerMask targetLayer, bool useLastRay = false)
     {
         Vector3 mouseWorldPosition = Input.mousePosition;
         //mouseWorldPosition.z = 2.0f;
         mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseWorldPosition);
 
-        Debug.DrawLine(mouseWorldPosition, Camera.main.transform.forward * 100.0f, Color.red, 5.0f);
+        //Debug.DrawLine(mouseWorldPosition, Camera.main.transform.forward * 100.0f, Color.red, 5.0f);
 
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (useLastRay == true)
+        {
+            mouseRay = lastRay;
+        }
+
+        Debug.DrawRay(mouseRay.origin, mouseRay.direction * 100.0f, Color.red, 5.0f);
+
+        this.lastRay = mouseRay;
 
         if (Physics.Raycast(mouseRay, out this._hitCheck.hitInfo, 100.0f, targetLayer) == true)
         {
@@ -411,15 +430,19 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void AttemptAnomalyFix()
     {
+        
         if (this.lookObjectStack.Count > 0)
         {
-            this.CastMouseRay(this._anomalyCheckLayer);    
+            this.CastMouseRay(this._anomalyCheckLayer, true);    
         }
         else
         {
-            this.CastCameraRay(this._anomalyCheckLayer, this._raycastMaxDistance);
+            this.CastCameraRay(this._anomalyCheckLayer, 10.0f, true);
         }
         
+
+
+
         if (this._hitCheck.success == true)
         {
             if (this._hitCheck.hitInfo.collider.tag == "Anomaly")

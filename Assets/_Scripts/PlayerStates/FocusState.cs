@@ -44,7 +44,7 @@ public class FocusState : PlayerState
         if (this.characterController.lookObjectStack.Count > 0)
         {
             Vector3 mousePosition = Input.mousePosition;            
-            mousePosition.z = 1.0f;            
+            mousePosition.z = 1.5f;            
 
             this._finalPosition = Camera.main.ScreenToWorldPoint(mousePosition);
             this._finalPosition.z = Camera.main.transform.position.z;            

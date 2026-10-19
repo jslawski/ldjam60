@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BaseAnomaly : MonoBehaviour
 {
+    [SerializeField]
     protected Collider _anomalyCollider;
 
     [HideInInspector]

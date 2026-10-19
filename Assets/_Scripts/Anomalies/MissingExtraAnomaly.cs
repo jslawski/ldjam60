@@ -6,6 +6,7 @@ public class MissingExtraAnomaly : BaseAnomaly
 {
     [Header("Make an object disappear, or an extra object appear")]
     private MeshRenderer[] _allRenderers;
+    private SpriteRenderer[] _allSpriteRenderers;
 
     [Header("Enable this if the anomaly makes an object disappear.\n" +
     "Disable this if the anomaly is making an extra object appear.")]
@@ -17,6 +18,7 @@ public class MissingExtraAnomaly : BaseAnomaly
         base.Start();
 
         this._allRenderers = this.transform.parent.gameObject.GetComponentsInChildren<MeshRenderer>();
+        this._allSpriteRenderers = this.transform.parent.gameObject.GetComponentsInChildren<SpriteRenderer>();
 
         if (this._isMissingAnomaly)
         {
@@ -64,11 +66,21 @@ public class MissingExtraAnomaly : BaseAnomaly
         {
             renderer.enabled = true;
         }
+
+        foreach (SpriteRenderer renderer in this._allSpriteRenderers)
+        {
+            renderer.enabled = true;
+        }
     }
 
     private void DisableAllRenderers()
     {
         foreach (MeshRenderer renderer in this._allRenderers)
+        {
+            renderer.enabled = false;
+        }
+
+        foreach (SpriteRenderer renderer in this._allSpriteRenderers)
         {
             renderer.enabled = false;
         }
