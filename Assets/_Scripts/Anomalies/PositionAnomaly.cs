@@ -22,8 +22,8 @@ public class PositionAnomaly : BaseAnomaly
     {
         base.Start();
 
-        this._defaultPosition = this.transform.parent.position;
-        this._defaultRotationEuler = this.transform.parent.rotation.eulerAngles;
+        this._defaultPosition = this.transform.parent.localPosition;
+        this._defaultRotationEuler = this.transform.parent.localRotation.eulerAngles;
         this._oldPositionCollider.enabled = false;
     }
 
@@ -31,17 +31,17 @@ public class PositionAnomaly : BaseAnomaly
     {
         base.Activate();
 
-        this.transform.parent.position = this._anomalyPosition;
-        this.transform.parent.rotation = Quaternion.Euler(this._anomalyRotation);
+        this.transform.parent.localPosition = this._anomalyPosition;
+        this.transform.parent.localRotation = Quaternion.Euler(this._anomalyRotation);
         this._oldPositionCollider.enabled = true;
-        this._oldPositionCollider.gameObject.transform.position = this._defaultPosition;
+        this._oldPositionCollider.gameObject.transform.localPosition = this._defaultPosition;
     }
 
     public override void Deactivate() 
     { 
         base.Deactivate();
-        this.transform.parent.position = this._defaultPosition;
-        this.transform.parent.rotation = Quaternion.Euler(this._defaultRotationEuler);
+        this.transform.parent.localPosition = this._defaultPosition;
+        this.transform.parent.localRotation = Quaternion.Euler(this._defaultRotationEuler);
         this._oldPositionCollider.enabled = false;
     }
 }
