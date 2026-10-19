@@ -26,6 +26,7 @@ public class BaseAnomaly : MonoBehaviour
     { 
         this._anomalyCollider.enabled = false;
         this.isActive = false;
+        AnomalyManager.instance.ResolveAnomaly();
     }
 
     public virtual bool IsVisible()
