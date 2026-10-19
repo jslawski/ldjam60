@@ -239,6 +239,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1712364311437308586, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712364311437308586, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
       propertyPath: _isMissingAnomaly
       value: 1
       objectReference: {fileID: 0}
@@ -301,6 +306,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599430174084208893, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5599430174084208893, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
@@ -375,6 +385,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.z
       value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019696854705903623, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4019696854705903623, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
@@ -547,6 +562,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5599430174084208893, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599430174084208893, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
       propertyPath: _objectSwapTarget
       value: 
       objectReference: {fileID: 176041864}
@@ -554,6 +574,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _otherSwapAnomaly
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655391099042301178, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5655391099042301178, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
@@ -1122,7 +1147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f017482f0d5fe46a4f76fde7750e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allAnomalyObjects: []
   _tutorialLabel: {fileID: 975510718}
   _startupTime: 3
 --- !u!1 &255605824
@@ -1259,6 +1283,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4384457388214837119, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4384457388214837119, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
       propertyPath: _anomalyPosition.x
       value: -1.35
       objectReference: {fileID: 0}
@@ -1284,9 +1313,19 @@ PrefabInstance:
       objectReference: {fileID: 1419234169}
     - target: {fileID: 5599430174084208893, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599430174084208893, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
       propertyPath: _objectSwapTarget
       value: 
       objectReference: {fileID: 841352486}
+    - target: {fileID: 5655391099042301178, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5655391099042301178, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
       propertyPath: _originalObject
@@ -4238,6 +4277,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4019696854705903623, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019696854705903623, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
       propertyPath: _anomalyMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 6cd0a52dda2308147aa113a2d8a2d0d0, type: 2}
@@ -4303,6 +4347,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4384457388214837119, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4384457388214837119, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
       propertyPath: _anomalyPosition.x
       value: 1.203
       objectReference: {fileID: 0}
@@ -4321,6 +4370,11 @@ PrefabInstance:
       propertyPath: _oldPositionCollider
       value: 
       objectReference: {fileID: 1802525428}
+    - target: {fileID: 5599430174084208893, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5599430174084208893, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
       propertyPath: _objectSwapTarget
@@ -4524,6 +4578,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.y
       value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712364311437308586, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1712364311437308586, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
@@ -4854,6 +4913,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 188514353}
     m_Modifications:
+    - target: {fileID: 1712364311437308586, guid: 06f60597d9da1084e810e6923fbf7160,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1712364311437308586, guid: 06f60597d9da1084e810e6923fbf7160,
         type: 3}
       propertyPath: _isMissingAnomaly

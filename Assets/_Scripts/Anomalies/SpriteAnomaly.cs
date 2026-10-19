@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpriteAnomaly : BaseAnomaly
 {
+    [Header("Swap the sprite of an object with a different sprite")]
     [SerializeField]
     private SpriteRenderer _changingRenderer;
 
