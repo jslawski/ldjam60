@@ -332,10 +332,21 @@ public class PlayerCharacterController : MonoBehaviour
         {
             this.CastCameraRay(this._lookObjectLayer, this._closeRaycastDistance);
         }
+
+        LookObject latestLookObject = null;
+
+        if (this.lookObjectStack.Count > 0)
+        {
+            latestLookObject = this.lookObjectStack.Peek();
+        }
         
         if (this._hitCheck.success == true)
         {
-            this.lookObjectStack.Push(this._hitCheck.hitInfo.collider.gameObject.GetComponentInParent<LookObject>());
+            LookObject newLookObject = this._hitCheck.hitInfo.collider.gameObject.GetComponentInParent<LookObject>();
+            if (latestLookObject != newLookObject)
+            {
+                this.lookObjectStack.Push(newLookObject);
+            }
         }
     }
 

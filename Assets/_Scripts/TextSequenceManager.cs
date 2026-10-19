@@ -50,6 +50,7 @@ public class TextSequenceManager : MonoBehaviour
             {
                 StopCoroutine(this._displayCoroutine);
                 this._displayText.text = this._pendingText;
+                this._displayCoroutine = null;
             }
         }
     }

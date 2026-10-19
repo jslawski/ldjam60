@@ -42,9 +42,18 @@ public class AnomalyManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (this.targetAnomaliesToResolve <= 0 && this._anomalyGenerator != null)
+        {
+            this.StopAnomalyGeneration();
+            StartCoroutine(this.ActivateNextScriptedAnomaly());
+        }
+    }
+
     private void Start()
     {
-        this.StartAnomalyHunt(5);
+        this.StartAnomalyHunt(3);
     }
 
     public void StartAnomalyHunt(int targetAnomalies)
@@ -63,7 +72,7 @@ public class AnomalyManager : MonoBehaviour
 
         if (this._benignAnomalyGenerator == null)
         {
-            this._benignAnomalyGenerator = StartCoroutine(this.GenerateBenignAnomalies());
+            //this._benignAnomalyGenerator = StartCoroutine(this.GenerateBenignAnomalies());
         }
     }
 
@@ -71,7 +80,7 @@ public class AnomalyManager : MonoBehaviour
     {
         float timeUntilNextAnomaly = Random.Range(this._minTimeBetweenAnomalies, this._maxTimeBetweenAnomalies);    
 
-        while (this.numActiveAnomalies < this.maxNumAnomalies && this.targetAnomaliesToResolve > 0)
+        while (this.numActiveAnomalies < this.maxNumAnomalies)
         {
             yield return new WaitForSeconds(timeUntilNextAnomaly);
 
@@ -81,10 +90,6 @@ public class AnomalyManager : MonoBehaviour
         if (this.numActiveAnomalies > this.maxNumAnomalies)
         {
             Debug.LogError("GAME OVER TRIGGERED");
-        }
-        else if (this.targetAnomaliesToResolve == 0)
-        {
-            StartCoroutine(this.ActivateNextScriptedAnomaly());
         }
     }
 
@@ -102,10 +107,9 @@ public class AnomalyManager : MonoBehaviour
 
     public void StopAnomalyGeneration() 
     {
-        if (this._anomalyGenerator != null)
-        {
-            StopCoroutine(this._anomalyGenerator);
-        }
+        StopAllCoroutines();
+        this._anomalyGenerator = null;
+        this._benignAnomalyGenerator = null;
     }
 
     private void ActivateRandomAnomaly()

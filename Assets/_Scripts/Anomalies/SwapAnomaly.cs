@@ -26,14 +26,16 @@ public class SwapAnomaly : BaseAnomaly
 
     public override void Deactivate()
     {
-        base.Deactivate();
+        this._anomalyCollider.enabled = false;
+        this.isActive = false;
 
         Vector3 targetPosition = this._otherSwapAnomaly.transform.position;
         Quaternion targetRotation = this._otherSwapAnomaly.transform.rotation;
 
         if (this._otherSwapAnomaly.isActive == true)
         {
-            this._otherSwapAnomaly.Deactivate();
+            AnomalyManager.instance.ResolveAnomaly(); 
+            this._otherSwapAnomaly.Deactivate();            
         }
 
         this.transform.position = targetPosition;
