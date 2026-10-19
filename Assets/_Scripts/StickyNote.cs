@@ -14,7 +14,7 @@ public class StickyNote : MonoBehaviour
     [SerializeField]
     private LayerMask _noteLayerMask;
 
-    private float _minDistanceBetweenPoints = 0.005f;
+    private float _minDistanceBetweenPoints = 0.000f;
 
     private float _offset = 0.001f;
     

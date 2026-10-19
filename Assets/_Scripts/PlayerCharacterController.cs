@@ -73,6 +73,8 @@ public class PlayerCharacterController : MonoBehaviour
     [SerializeField]
     public Image _fadeImage;
 
+    public TextSequence currentTextSequence;
+
     private void Awake()
     {
         this._cameraTransform = Camera.main.transform;
@@ -82,7 +84,7 @@ public class PlayerCharacterController : MonoBehaviour
     }
 
     private void Start()
-    {
+    {        
         this.ChangeState(new MoveState());
     }
 

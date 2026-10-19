@@ -6,7 +6,8 @@ public class AnomalyManager : MonoBehaviour
 {
     public static AnomalyManager instance;
     [SerializeField]
-    private Queue<ScriptedAnomaly> _scriptedAnomalies; 
+    private ScriptedAnomaly[] _scriptedAnomalies;
+    private Queue<ScriptedAnomaly> _scriptedAnomaliesQueue; 
     private BaseAnomaly[] _allAnomalies;
     private BenignAnomaly[] _allBenignAnomalies;
 
@@ -32,6 +33,18 @@ public class AnomalyManager : MonoBehaviour
         }
 
         this._allAnomalies = GetComponentsInChildren<BaseAnomaly>();
+
+        this._scriptedAnomaliesQueue = new Queue<ScriptedAnomaly>();
+
+        for (int i = 0; i < this._scriptedAnomalies.Length; i++)
+        {
+            this._scriptedAnomaliesQueue.Enqueue(this._scriptedAnomalies[i]);
+        }
+    }
+
+    private void Start()
+    {
+        this.StartAnomalyHunt(5);
     }
 
     public void StartAnomalyHunt(int targetAnomalies)
@@ -100,15 +113,20 @@ public class AnomalyManager : MonoBehaviour
         int randomIndex = Random.Range(0, this._allAnomalies.Length);
         BaseAnomaly randomAnomaly = this._allAnomalies[randomIndex];
 
-        while (randomAnomaly.IsVisible() == true)
+        int attempts = 10;
+
+        while (randomAnomaly.IsVisible() == true && attempts > 0)
         {
             randomIndex = Random.Range(0, this._allAnomalies.Length);
             randomAnomaly = this._allAnomalies[randomIndex];
+            attempts--;
         }
 
-        randomAnomaly.Activate();
-
-        this.numActiveAnomalies++;
+        if (attempts > 0)
+        {
+            randomAnomaly.Activate();
+            this.numActiveAnomalies++;
+        }
     }
 
     private void ActivateRandomBenignAnomaly()
@@ -133,10 +151,11 @@ public class AnomalyManager : MonoBehaviour
 
     private IEnumerator ActivateNextScriptedAnomaly()
     {
-        ScriptedAnomaly nextScriptedAnomaly = this._scriptedAnomalies.Dequeue();
+        ScriptedAnomaly nextScriptedAnomaly = this._scriptedAnomaliesQueue.Dequeue();
 
         while (nextScriptedAnomaly.IsVisible() == true)
         {
+            Debug.LogError("Anomaly Is Visible");
             yield return null;
         }
 

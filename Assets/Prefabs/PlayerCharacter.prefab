@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3455212485370136577}
   m_Layer: 7
   m_Name: PlayerCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,7 +91,7 @@ MonoBehaviour:
     type: 3}
   _raycastLayer:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 1281
   _postedNoteLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -104,6 +104,8 @@ MonoBehaviour:
   _hudCanvas: {fileID: 5622791213192279048}
   _cachedPlayerPosition: {x: 0, y: 0, z: 0}
   _cachedPlayerRotation: {x: 0, y: 0, z: 0, w: 0}
+  _fadeImage: {fileID: 0}
+  currentTextSequence: {fileID: 0}
 --- !u!54 &1064124791093711115
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -402,7 +404,7 @@ GameObject:
   - component: {fileID: 6801200490836318863}
   m_Layer: 7
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
