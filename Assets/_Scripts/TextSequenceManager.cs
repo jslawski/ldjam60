@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class TextSequenceManager : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class TextSequenceManager : MonoBehaviour
         this._playerClicked = true;
     }
 
-    public void StartTextSequence(TextSequence newSequence)
+    public void StartTextSequence(TextSequence newSequence, UnityAction callback = null)
     {
         StopAllCoroutines();        
         this._currentSequence = newSequence;

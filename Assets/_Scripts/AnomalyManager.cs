@@ -28,6 +28,11 @@ public class AnomalyManager : MonoBehaviour
     [SerializeField]
     private Pills pills;
 
+    public AudioClip clockChime;
+    public Transform clockTransform;
+
+    private ScriptedAnomaly _currentScriptedAnomaly;
+
     private void Awake()
     {
         if (instance == null)
@@ -71,11 +76,12 @@ public class AnomalyManager : MonoBehaviour
 
     private void Start()
     {
-        this.StartAnomalyHunt(30);
+        //this.StartAnomalyHunt(30);
     }
 
     public void StartAnomalyHunt(int targetAnomalies)
     {
+        this.StopAnomalyGeneration();
         this.targetAnomaliesToResolve = targetAnomalies;
 
         this.StartAnomalyGeneration();
@@ -147,15 +153,7 @@ public class AnomalyManager : MonoBehaviour
         if (attempts > 0)
         {
             randomAnomaly.Activate();
-            this.numActiveAnomalies++;
-
-            if (this.numActiveAnomalies > 3)
-            {
-                if (this.pills.available == false)
-                {
-                    this.pills.Refill();
-                }                
-            }
+            this.numActiveAnomalies++;            
         }
     }
 
@@ -179,17 +177,27 @@ public class AnomalyManager : MonoBehaviour
         }
     }
 
+    public void ForceNextScriptedAnomaly()
+    {
+        this._currentScriptedAnomaly = this._scriptedAnomaliesQueue.Dequeue();
+        this._currentScriptedAnomaly.Activate();
+    }
+
     private IEnumerator ActivateNextScriptedAnomaly()
     {
-        ScriptedAnomaly nextScriptedAnomaly = this._scriptedAnomaliesQueue.Dequeue();
+        this._currentScriptedAnomaly = this._scriptedAnomaliesQueue.Dequeue();
 
-        while (nextScriptedAnomaly.IsVisible() == true)
+        while (this._currentScriptedAnomaly.IsVisible() == true)
         {
-            Debug.LogError("Anomaly Is Visible");
             yield return null;
         }
 
-        nextScriptedAnomaly.Activate();
+        this._currentScriptedAnomaly.Activate();
+    }
+
+    public void TriggerScriptedSequence()
+    {
+        this._currentScriptedAnomaly.StartSequence();
     }
 
     public void ResolveAnomaly()
@@ -207,5 +215,13 @@ public class AnomalyManager : MonoBehaviour
                 anomaly.Deactivate();
             }
         }
+    }
+
+    public void RefillPills()
+    {
+        this.pills.Refill();
+
+        AudioChannelSettings channelSettings = new AudioChannelSettings(false, 1, 1, 1, "SFX", this.clockTransform);
+        AudioManager.instance.Play(this.clockChime, channelSettings);
     }
 }
