@@ -1838,10 +1838,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 416412871}
     m_Modifications:
+    - target: {fileID: 274680312243747620, guid: afe9f574b2131c242a23d8aa7d2286d9,
+        type: 3}
+      propertyPath: m_Name
+      value: Painting19
+      objectReference: {fileID: 0}
+    - target: {fileID: 2277292356894122162, guid: afe9f574b2131c242a23d8aa7d2286d9,
+        type: 3}
+      propertyPath: m_Name
+      value: Painting20
+      objectReference: {fileID: 0}
     - target: {fileID: 5534558450323487576, guid: afe9f574b2131c242a23d8aa7d2286d9,
         type: 3}
       propertyPath: m_Name
       value: HouseScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7907191263555278411, guid: afe9f574b2131c242a23d8aa7d2286d9,
+        type: 3}
+      propertyPath: m_Name
+      value: Painting18
       objectReference: {fileID: 0}
     - target: {fileID: 9203977962813122045, guid: afe9f574b2131c242a23d8aa7d2286d9,
         type: 3}
