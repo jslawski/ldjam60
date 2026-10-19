@@ -4,16 +4,31 @@ using UnityEngine;
 
 public class BaseAnomaly : MonoBehaviour
 {
-    [SerializeField]
     protected Collider _anomalyCollider;
 
-    [SerializeField]
+    [HideInInspector]
     public bool isActive = false;
 
-    protected virtual void Awake()
-    {       
+    protected virtual void Start()
+    {
+        this.SetupAnomalyCollider();
+
         this._anomalyCollider.enabled = false;
         this.isActive = false;
+    }
+
+    protected void SetupAnomalyCollider()
+    {
+        Collider[] allColliders = GetComponentsInChildren<Collider>();
+
+        foreach (Collider collider in allColliders)
+        {
+            if (collider.tag == "Anomaly")
+            {
+                this._anomalyCollider = collider;
+                break;
+            }
+        }
     }
 
     public virtual void Activate()

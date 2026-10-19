@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class MissingExtraAnomaly : BaseAnomaly
 {
+    [Header("Make an object disappear, or an extra object appear")]
     private MeshRenderer[] _allRenderers;
 
+    [Header("Enable this if the anomaly makes an object disappear.\n" +
+    "Disable this if the anomaly is making an extra object appear.")]
     [SerializeField]
     private bool _isMissingAnomaly = false;
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
 
-        this._allRenderers = GetComponentsInChildren<MeshRenderer>();
+        this._allRenderers = this.transform.parent.gameObject.GetComponentsInChildren<MeshRenderer>();
 
         if (this._isMissingAnomaly)
         {

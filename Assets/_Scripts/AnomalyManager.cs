@@ -7,8 +7,8 @@ public class AnomalyManager : MonoBehaviour
     public static AnomalyManager instance;
     [SerializeField]
     private ScriptedAnomaly[] _scriptedAnomalies;
-    private Queue<ScriptedAnomaly> _scriptedAnomaliesQueue; 
-    private BaseAnomaly[] _allAnomalies;
+    private Queue<ScriptedAnomaly> _scriptedAnomaliesQueue;
+    private List<BaseAnomaly> _allAnomalies;
     private BenignAnomaly[] _allBenignAnomalies;
 
     public int numActiveAnomalies = 0;
@@ -32,13 +32,28 @@ public class AnomalyManager : MonoBehaviour
             instance = this;
         }
 
-        this._allAnomalies = GetComponentsInChildren<BaseAnomaly>();
+        this.GetAllEnabledAnomalies();
 
         this._scriptedAnomaliesQueue = new Queue<ScriptedAnomaly>();
 
         for (int i = 0; i < this._scriptedAnomalies.Length; i++)
         {
             this._scriptedAnomaliesQueue.Enqueue(this._scriptedAnomalies[i]);
+        }
+    }
+
+    private void GetAllEnabledAnomalies()
+    {
+        BaseAnomaly[] allAnomalies = GetComponentsInChildren<BaseAnomaly>();
+
+        this._allAnomalies = new List<BaseAnomaly>();
+
+        foreach (BaseAnomaly anomaly in allAnomalies)
+        {
+            if (anomaly.enabled == true)
+            {
+                this._allAnomalies.Add(anomaly);
+            }
         }
     }
 
@@ -114,14 +129,14 @@ public class AnomalyManager : MonoBehaviour
 
     private void ActivateRandomAnomaly()
     {
-        int randomIndex = Random.Range(0, this._allAnomalies.Length);
+        int randomIndex = Random.Range(0, this._allAnomalies.Count);
         BaseAnomaly randomAnomaly = this._allAnomalies[randomIndex];
 
         int attempts = 10;
 
         while (randomAnomaly.IsVisible() == true && attempts > 0)
         {
-            randomIndex = Random.Range(0, this._allAnomalies.Length);
+            randomIndex = Random.Range(0, this._allAnomalies.Count);
             randomAnomaly = this._allAnomalies[randomIndex];
             attempts--;
         }

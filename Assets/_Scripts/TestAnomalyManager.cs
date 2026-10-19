@@ -5,9 +5,10 @@ using TMPro;
 using System;
 
 public class TestAnomalyManager : MonoBehaviour
-{
-    [SerializeField]
+{    
     private BaseAnomaly[] _allAnomalyObjects;
+
+    private List<BaseAnomaly> _allEnabledAnomalyComponents;
 
     [SerializeField]
     private TextMeshProUGUI _tutorialLabel;
@@ -18,6 +19,20 @@ public class TestAnomalyManager : MonoBehaviour
     private void Awake()
     {
         this._allAnomalyObjects = GetComponentsInChildren<BaseAnomaly>();
+        this._allEnabledAnomalyComponents = new List<BaseAnomaly>();
+
+        this.FilterEnabledAnomalyComponents();
+    }
+
+    private void FilterEnabledAnomalyComponents()
+    {
+        foreach (BaseAnomaly anomalyComponent in this._allAnomalyObjects)
+        {
+            if (anomalyComponent.enabled == true)
+            { 
+                this._allEnabledAnomalyComponents.Add(anomalyComponent);
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -53,7 +68,7 @@ public class TestAnomalyManager : MonoBehaviour
 
     private bool AreAllAnomalyObjectsHidden()
     { 
-        foreach (BaseAnomaly anomaly in this._allAnomalyObjects) 
+        foreach (BaseAnomaly anomaly in this._allEnabledAnomalyComponents) 
         {        
             if (anomaly.IsVisible() == true)
             {
@@ -68,7 +83,7 @@ public class TestAnomalyManager : MonoBehaviour
 
     private bool AreAllAnomalyObjectsVisible()
     {    
-        foreach (BaseAnomaly anomaly in this._allAnomalyObjects)
+        foreach (BaseAnomaly anomaly in this._allEnabledAnomalyComponents)
         {        
             if (anomaly.IsVisible() == false)
             {
@@ -81,7 +96,7 @@ public class TestAnomalyManager : MonoBehaviour
 
     private bool IsAnomalyActive()
     {
-        foreach (BaseAnomaly anomaly in this._allAnomalyObjects)
+        foreach (BaseAnomaly anomaly in this._allEnabledAnomalyComponents)
         {
             if (anomaly.IsAnomalyActive() == true)
             {
@@ -95,14 +110,14 @@ public class TestAnomalyManager : MonoBehaviour
 
     private void TriggerRandomAnomaly()
     {
-        int randomIndex = UnityEngine.Random.Range(0, this._allAnomalyObjects.Length);
+        int randomIndex = UnityEngine.Random.Range(0, this._allEnabledAnomalyComponents.Count);
 
-        this._allAnomalyObjects[randomIndex].Activate();
+        this._allEnabledAnomalyComponents[randomIndex].Activate();
     }
 
     private void ReportObjectVisibility()
     {
-        foreach (BaseAnomaly anomaly in this._allAnomalyObjects)
+        foreach (BaseAnomaly anomaly in this._allEnabledAnomalyComponents)
         {
             if (anomaly.IsVisible() == true)
             {

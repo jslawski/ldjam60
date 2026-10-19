@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MaterialAnomaly : BaseAnomaly
 {
+    [Header("Swap the material of an object with a different material")]
     [SerializeField]
     private MeshRenderer _changingRenderer;    
 
