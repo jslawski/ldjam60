@@ -3,7 +3,17 @@ guid: 9748d964f01956946a418639fbfe570d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lamp1_LampshadeSubsurface
+    second: {fileID: 2100000, guid: 6547fb0d824e57c45bfe4bf534f2b340, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lamp1_SquareLampMat
+    second: {fileID: 2100000, guid: 90563c8046c4fbc4dace6de23995a079, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

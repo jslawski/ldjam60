@@ -3,7 +3,12 @@ guid: 4ccf27c115ebf024887bde899f4d1728
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ReamBoxMat
+    second: {fileID: 2100000, guid: d9a7f0c201e82564fa155ca1be1882de, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
