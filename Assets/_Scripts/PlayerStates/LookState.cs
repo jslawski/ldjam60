@@ -48,9 +48,10 @@ public class LookState : PlayerState
             this.characterController.ChangeState(new DrawState());
         }
 
-        if (PlayerControlsManager.instance.backPressInitiated == true)
+        if (PlayerControlsManager.instance.backPressInitiated == true || PlayerControlsManager.instance.rightClickInitiated == true)
         {
             PlayerControlsManager.instance.backPressInitiated = false;
+            PlayerControlsManager.instance.rightClickInitiated = false;
             this.characterController.ExitLookTransform();
         }
     }
