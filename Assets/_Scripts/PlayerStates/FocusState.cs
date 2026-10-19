@@ -19,7 +19,7 @@ public class FocusState : PlayerState
     private Tweener _zoomInTween;
     private Tweener _zoomOutTween;
 
-    private float _doorOpenBuffer = 0.5f;
+    private float _doorOpenBuffer = 2.8f;
 
     private int _originalLookObjectCount = 0;
 

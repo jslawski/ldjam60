@@ -11,6 +11,13 @@ public class DoctorScriptedAnomaly : ScriptedAnomaly
     {
         base.StartSequence();
 
-        TextSequenceManager.instance.StartTextSequence(this._doctorSequence);
+        TextSequenceManager.instance.StartTextSequence(this._doctorSequence, this.Deactivate);
+    }
+
+    public override void Deactivate()
+    {
+        base.Deactivate();
+
+        AnomalyManager.instance.StartAnomalyHunt(5);
     }
 }
