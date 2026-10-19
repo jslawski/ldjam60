@@ -37,11 +37,16 @@ public class TextSequenceManager : MonoBehaviour
     }
 
     private void Update()
-    {
+    {            
         if (this._playerClicked == true)
         {
             this._playerClicked = false;
-        
+
+            if (this._currentSequence.activeText == true)
+            {
+                return;
+            }
+
             if (this._displayCoroutine == null)
             {
                 this.AdvanceText();
@@ -62,9 +67,11 @@ public class TextSequenceManager : MonoBehaviour
 
     public void StartTextSequence(TextSequence newSequence)
     {
+        StopAllCoroutines();
         this._currentSequence = newSequence;
         this._currentIndex = 0;
         this._displayText.color = this._originalColor;
+        this._displayText.text = string.Empty;
         this.sequenceFinished = false;
 
         this.DisplayCurrentText();
@@ -112,6 +119,18 @@ public class TextSequenceManager : MonoBehaviour
         }
 
         this._displayCoroutine = null;
+
+        if (this._currentSequence.activeText == true)
+        {
+            StartCoroutine(this.FadeOutAfterDelay());
+        }
+    }
+
+    private IEnumerator FadeOutAfterDelay()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        this.FinishSequence();
     }
 
     public void AdvanceText()
@@ -126,7 +145,6 @@ public class TextSequenceManager : MonoBehaviour
         {
             this.FinishSequence();
         }
-
     }
 
     private void FinishSequence()

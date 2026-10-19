@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Anomaly
   - LookObject
+  - Pills
+  - Interact
   layers:
   - Default
   - TransparentFX

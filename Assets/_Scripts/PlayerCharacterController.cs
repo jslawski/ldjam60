@@ -291,7 +291,10 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void DiscardStickyNote()
     {
+        this.currentStickyNote.transform.DOKill();
+
         Destroy(this.currentStickyNote);
+        
         this.currentStickyNote = null;
 
         Vector3 offsetVector = (-this._cameraTransform.right * this._discardedNoteOffsetPosition.x) + 
@@ -347,6 +350,26 @@ public class PlayerCharacterController : MonoBehaviour
             {
                 this.lookObjectStack.Push(newLookObject);
             }
+        }
+    }
+
+    public void TryInteract()
+    {
+        if (this.lookObjectStack.Count > 0)
+        {
+            this.CastMouseRay(this._raycastLayer);
+        }
+        else
+        {
+            this.CastCameraRay(this._raycastLayer, this._closeRaycastDistance);
+        }
+
+        if (this._hitCheck.success == true)
+        {
+            if (this._hitCheck.hitInfo.collider.tag == "Interact")
+            {
+                this._hitCheck.hitInfo.collider.gameObject.GetComponent<InteractObject>().Interact();
+            }            
         }
     }
 

@@ -53,7 +53,7 @@ public class BaseAnomaly : MonoBehaviour
 
     public virtual bool IsAnomalyActive()
     { 
-        BaseAnomaly[] allAnomalyComponents = GetComponentsInChildren<BaseAnomaly>();
+        BaseAnomaly[] allAnomalyComponents = GetComponents<BaseAnomaly>();
 
         foreach (BaseAnomaly anomalyComponent in allAnomalyComponents)
         {

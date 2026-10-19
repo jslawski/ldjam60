@@ -6,4 +6,5 @@ using UnityEngine;
 public class TextSequence : ScriptableObject
 {
     public string[] texts;
+    public bool activeText;
 }

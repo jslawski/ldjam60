@@ -16,14 +16,17 @@ public class AnomalyManager : MonoBehaviour
 
     public int targetAnomaliesToResolve = 3;
 
-    private float _minTimeBetweenAnomalies = 45.0f;
-    private float _maxTimeBetweenAnomalies = 90.0f;
+    private float _minTimeBetweenAnomalies = 1.0f;//45.0f;
+    private float _maxTimeBetweenAnomalies = 1.0f;//90.0f;
 
     private float _minTimeBetweenBenignAnomalies = 120.0f;
     private float _maxTimeBetweenBenignAnomalies = 240.0f;
 
     private Coroutine _anomalyGenerator;
     private Coroutine _benignAnomalyGenerator;
+
+    [SerializeField]
+    private Pills pills;
 
     private void Awake()
     {
@@ -68,7 +71,7 @@ public class AnomalyManager : MonoBehaviour
 
     private void Start()
     {
-        this.StartAnomalyHunt(3);
+        this.StartAnomalyHunt(30);
     }
 
     public void StartAnomalyHunt(int targetAnomalies)
@@ -134,7 +137,7 @@ public class AnomalyManager : MonoBehaviour
 
         int attempts = 10;
 
-        while (randomAnomaly.IsVisible() == true && attempts > 0)
+        while ((randomAnomaly.IsVisible() == true || randomAnomaly.IsAnomalyActive()) && attempts > 0)
         {
             randomIndex = Random.Range(0, this._allAnomalies.Count);
             randomAnomaly = this._allAnomalies[randomIndex];
@@ -145,6 +148,14 @@ public class AnomalyManager : MonoBehaviour
         {
             randomAnomaly.Activate();
             this.numActiveAnomalies++;
+
+            if (this.numActiveAnomalies > 3)
+            {
+                if (this.pills.available == false)
+                {
+                    this.pills.Refill();
+                }                
+            }
         }
     }
 
@@ -185,5 +196,16 @@ public class AnomalyManager : MonoBehaviour
     {
         this.numActiveAnomalies--;
         this.targetAnomaliesToResolve--;
+    }
+
+    public void ResolveAllActiveAnomalies()
+    {
+        foreach (BaseAnomaly anomaly in this._allAnomalies)
+        {
+            if (anomaly.isActive == true)
+            {
+                anomaly.Deactivate();
+            }
+        }
     }
 }

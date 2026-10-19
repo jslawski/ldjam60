@@ -91,6 +91,7 @@ public class FocusState : PlayerState
                 }
                 else
                 {
+                    this.characterController.TryInteract();
                     this.RevertToPreviousState();
                 }
             }
