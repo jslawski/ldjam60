@@ -67,10 +67,9 @@ public class TextSequenceManager : MonoBehaviour
 
     public void StartTextSequence(TextSequence newSequence)
     {
-        StopAllCoroutines();
+        StopAllCoroutines();        
         this._currentSequence = newSequence;
         this._currentIndex = 0;
-        this._displayText.color = this._originalColor;
         this._displayText.text = string.Empty;
         this.sequenceFinished = false;
 
@@ -81,6 +80,7 @@ public class TextSequenceManager : MonoBehaviour
     private void DisplayCurrentText()
     {
         this._displayText.text = string.Empty;
+        this._originalColor = this._currentSequence.textColor[this._currentIndex];
         this._displayCoroutine = StartCoroutine(this.TypeWriteText());
     }
 

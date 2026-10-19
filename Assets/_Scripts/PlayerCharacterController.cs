@@ -54,9 +54,10 @@ public class PlayerCharacterController : MonoBehaviour
     private LayerMask _anomalyCheckLayer;
 
     private RaycastHitCheck _hitCheck = new RaycastHitCheck();
-    private float _raycastMaxDistance = 3.0f;
+    private float _raycastMaxDistance = 5.0f;
     private float _closeRaycastDistance = 2.0f;
     private float _lookRaycastDistance = 100.0f;
+    private float _stickyNoteDistance = 3.0f;
 
     private float _placementOffset = 0.0011f;
 
@@ -267,15 +268,18 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void UpdateStickyNoteCurrentPosition()
     {
+        float maxNoteDistance = this._raycastMaxDistance;
+
         if (this.lookObjectStack.Count > 0)
         {
-            this.CastMouseRay(this._raycastLayer);
+            this.CastMouseRay(this._raycastLayer);            
         }
         else
         {
             this.CastCameraRay(this._raycastLayer, this._raycastMaxDistance);
-        }
-        
+            maxNoteDistance = this._raycastMaxDistance - Vector3.Distance(Camera.main.transform.localPosition, (Camera.main.transform.forward * 2.0f));
+        }       
+
         if (this._hitCheck.success == true)
         {
             this.stickyNoteTargetPosition = this._hitCheck.hitInfo.point + (this._hitCheck.hitInfo.normal * this._placementOffset);
@@ -283,7 +287,7 @@ public class PlayerCharacterController : MonoBehaviour
         }
         else
         {
-            this.stickyNoteTargetPosition = this._cameraTransform.position + (this._cameraTransform.forward * this._raycastMaxDistance);
+            this.stickyNoteTargetPosition = this._cameraTransform.position + (this._cameraTransform.forward * maxNoteDistance);
             this.stickyNoteTargetForward = this._cameraTransform.forward;
         }
 
@@ -377,15 +381,13 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void CastCameraRay(LayerMask targetLayer, float raycastDistance, bool useLastRay = false)
     {
-        Ray cameraRay = new Ray(Camera.main.transform.position - (Camera.main.transform.forward * 2.0f), Camera.main.transform.forward);
+        Ray cameraRay = new Ray(Camera.main.transform.position - (Camera.main.transform.forward * 0.5f), Camera.main.transform.forward);
         this._hitCheck = new RaycastHitCheck();
 
         if (useLastRay == true)
         {
             cameraRay = lastRay;
         }
-
-
 
         this.lastRay = cameraRay;
 
@@ -429,8 +431,7 @@ public class PlayerCharacterController : MonoBehaviour
     }
 
     public void AttemptAnomalyFix()
-    {
-        
+    {        
         if (this.lookObjectStack.Count > 0)
         {
             this.CastMouseRay(this._anomalyCheckLayer, true);    
@@ -440,9 +441,6 @@ public class PlayerCharacterController : MonoBehaviour
             this.CastCameraRay(this._anomalyCheckLayer, 10.0f, true);
         }
         
-
-
-
         if (this._hitCheck.success == true)
         {
             if (this._hitCheck.hitInfo.collider.tag == "Anomaly")

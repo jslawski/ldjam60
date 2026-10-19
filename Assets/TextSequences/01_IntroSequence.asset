@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7f716162a964745ace8b4d3506cd21, type: 3}
+  m_Name: 01_IntroSequence
+  m_EditorClassIdentifier: 
+  texts:
+  - Hello. I am calling to share important information regarding your latest test
+    results.
+  - Cognitive decline is still progressing with your age.
+  - Pay close attention to your surroundings and focus whenever something looks out
+    of place.
+  - You are only supposed to take your medication whenever the clock chimes.
+  - Thank you, Doctor....
+  textColor:
+  - {r: 0.20060521, g: 0.2996851, b: 0.8679245, a: 0}
+  - {r: 0.20000002, g: 0.29803923, b: 0.86666673, a: 0}
+  - {r: 0.20000002, g: 0.29803923, b: 0.86666673, a: 0}
+  - {r: 0.20000002, g: 0.29803923, b: 0.86666673, a: 0}
+  - {r: 0.8113208, g: 0, b: 0.6223737, a: 0}
+  activeText: 0

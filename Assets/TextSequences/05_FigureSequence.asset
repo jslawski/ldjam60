@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7f716162a964745ace8b4d3506cd21, type: 3}
+  m_Name: 05_FigureSequence
+  m_EditorClassIdentifier: 
+  texts:
+  - Are you still worried?
+  - "I\u2019ve lost a lot of sleep thinking about it."
+  - "Those thoughts won\u2019t matter. You won\u2019t even remember them."
+  - "I don\u2019t know what I'll do when that happens."
+  - Once the traction is gone completely your memories will slowly dissolve leaving
+    only holes behind.
+  - "At first you\u2019ll at least have that - a voice saying \u201Csomething was
+    here.\u201D"
+  - "Eventually you won\u2019t even notice the voids."
+  - The infection will spread from your memories to your rationality and judgement
+    until your identity is eroded away along with any perception of reality.
+  - "What\u2019s left of who you are will pour out through the cracks."
+  - What meaning does reality have if it can all be taken away that easily?
+  textColor:
+  - {r: 1, g: 0.7971698, b: 0.9517746, a: 0}
+  - {r: 0.8117647, g: 0, b: 0.62352943, a: 0}
+  - {r: 1, g: 0.7960785, b: 0.95294124, a: 0}
+  - {r: 0.8117648, g: 0, b: 0.62352943, a: 0}
+  - {r: 1, g: 0.7960785, b: 0.95294124, a: 0}
+  - {r: 1, g: 0.7960785, b: 0.95294124, a: 0}
+  - {r: 1, g: 0.7960785, b: 0.95294124, a: 0}
+  - {r: 1, g: 0.7960785, b: 0.95294124, a: 0}
+  - {r: 1, g: 0.7960785, b: 0.95294124, a: 0}
+  - {r: 1, g: 0.7960785, b: 0.95294124, a: 0}
+  activeText: 0
