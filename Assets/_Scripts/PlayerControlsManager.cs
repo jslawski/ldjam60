@@ -19,7 +19,7 @@ public class PlayerControlsManager : MonoBehaviour
     [HideInInspector]
     public bool backPressInitiated = false;
 
-    private static float mouseSensitivity = 0.25f;
+    private static float mouseSensitivity = 0.1f;
 
     public PlayerCharacterController characterController;
 

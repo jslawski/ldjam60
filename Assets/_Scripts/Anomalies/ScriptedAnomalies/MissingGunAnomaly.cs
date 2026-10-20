@@ -12,6 +12,8 @@ public class MissingGunAnomaly : ScriptedAnomaly
     public AudioClip glassBreakSound;
     public GameObject missingGunObject;
 
+    public Collider cookingIngredients;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -22,7 +24,9 @@ public class MissingGunAnomaly : ScriptedAnomaly
 
             MusicManager.instance.PlayPlace();
             MusicManager.instance.AddDistress();
-            
+
+            this.cookingIngredients.enabled = false;
+
             this.Deactivate();
         }
     }
@@ -31,7 +35,7 @@ public class MissingGunAnomaly : ScriptedAnomaly
     {
         base.Deactivate();
     
-        AudioChannelSettings channelSettings = new AudioChannelSettings(false, 1, 1, 1, "SFX");
+        AudioChannelSettings channelSettings = new AudioChannelSettings(false, 0.8f, 0.8f, 0.5f, "SFX");
         AudioManager.instance.Play(this.glassBreakSound, channelSettings);
         this.missingGunObject.SetActive(true);
 

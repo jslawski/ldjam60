@@ -451,13 +451,13 @@ public class PlayerCharacterController : MonoBehaviour
             }
             else
             {
-                AudioChannelSettings channelSettings = new AudioChannelSettings(false);
+                AudioChannelSettings channelSettings = new AudioChannelSettings(false, 1, 0.5f);
                 AudioManager.instance.Play(this.noAnomalySound, channelSettings);
             }
         }
         else
         {
-            AudioChannelSettings channelSettings = new AudioChannelSettings(false);
+            AudioChannelSettings channelSettings = new AudioChannelSettings(false, 1, 0.5f);
             AudioManager.instance.Play(this.noAnomalySound, channelSettings);
         }
     }
@@ -482,7 +482,7 @@ public class PlayerCharacterController : MonoBehaviour
             Debug.LogError("No current look objects");
             return;
         }
-
+        
         this._fadeImage.DOColor(Color.black, 0.2f).OnComplete(this.EnterLookObjectCallback);
     }
 
@@ -495,6 +495,8 @@ public class PlayerCharacterController : MonoBehaviour
             this._cachedPlayerPosition = this.transform.position;
             this._cachedPlayerRotation = this._cameraTransform.rotation;//Quaternion.Euler(Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up));
         }
+
+        this._cameraTransform.localPosition = new Vector3(0.0f, 0.465f, 0.281f);
 
         this.transform.position = latestLookObject.lookScenePosition;
         this._cameraTransform.rotation = Quaternion.identity;

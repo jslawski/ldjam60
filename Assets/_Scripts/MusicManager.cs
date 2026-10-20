@@ -16,21 +16,21 @@ public class MusicManager : MonoBehaviour
         if (instance == null)
         { instance = this; }
 
-        this.feeling.volume = 1.0f;
+        this.feeling.volume = 1.5f;
         this.place.volume = 0.0f;
         this.distress.volume = 0.0f;
     }
 
     public void PlayFeeling()
     {
-        this.feeling.volume = 1.0f;
+        this.feeling.volume = 1.5f;
         this.place.volume = 0.0f;
     }
 
     public void PlayPlace()
     {
         this.feeling.volume = 0.0f;
-        this.place.volume = 1.0f;
+        this.place.volume = 1.5f;
     }
 
     public void AddDistress()

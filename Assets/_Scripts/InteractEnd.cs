@@ -8,6 +8,6 @@ public class InteractEnd : InteractObject
     {
         base.Interact();
 
-        Application.Quit();
+        SceneLoader.instance.LoadScene("MainMenu");
     }
 }

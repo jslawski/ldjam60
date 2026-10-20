@@ -17,6 +17,8 @@ public class HousekeeperAnomaly : ScriptedAnomaly
 
     private PlayerCharacterController _characterController;
 
+    public GameObject tutorialUI;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -24,6 +26,8 @@ public class HousekeeperAnomaly : ScriptedAnomaly
             this._characterController = other.gameObject.GetComponentInParent<PlayerCharacterController>();
 
             this.StartSequence();
+
+            this.tutorialUI.SetActive(false);
         }
     }
 
@@ -41,7 +45,7 @@ public class HousekeeperAnomaly : ScriptedAnomaly
     {
         base.Activate();
 
-        AudioChannelSettings channelSettings = new AudioChannelSettings(false, 1, 1, 1, "SFX", this.sourceDoor.transform);
+        AudioChannelSettings channelSettings = new AudioChannelSettings(false, 1, 1.0f, 0.2f, "SFX", this.sourceDoor.transform);
         AudioManager.instance.Play(this.brokenGlassSound, channelSettings);
         this.ladyObject.SetActive(true);
         this.brokenBird.Activate();

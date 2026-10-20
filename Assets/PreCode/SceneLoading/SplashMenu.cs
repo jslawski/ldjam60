@@ -27,6 +27,8 @@ public class SplashMenu : MonoBehaviour
         
     private void Awake()
     {
+        Application.targetFrameRate = 60;
+    
         this.fadePanel.OnFadeSequenceComplete += this.DisplaySplashScreen;
         
         videoPlayer.started += OnVideoStarted;
@@ -56,17 +58,8 @@ public class SplashMenu : MonoBehaviour
     private IEnumerator DisplayCoroutine()
     {
         yield return new WaitForSeconds(fadeOutDelay);
-        
-        string playerName = PlayerPrefs.GetString("username", string.Empty);
 
-        if (playerName == string.Empty)
-        {
-            SceneLoader.instance.LoadScene("LoginScene");
-        }
-        else
-        {
-            SceneLoader.instance.LoadScene("MainMenu");
-        }
+        SceneLoader.instance.LoadScene("MainMenu");
     }
 
     private void Update()
@@ -89,15 +82,7 @@ public class SplashMenu : MonoBehaviour
             skipFiller.fillAmount = skipTimer / skipKeyHoldDuration;
             if (skipTimer > skipKeyHoldDuration)
             {
-                string playerName = PlayerPrefs.GetString("username", string.Empty);
-                if (playerName == string.Empty)
-                {
-                    SceneLoader.instance.LoadScene("LoginScene");
-                }
-                else
-                {
-                    SceneLoader.instance.LoadScene("MainMenu");
-                }
+                SceneLoader.instance.LoadScene("MainMenu");
 
                 StartCoroutine(FadeOutVideoVolume());
                 skipped = true;
