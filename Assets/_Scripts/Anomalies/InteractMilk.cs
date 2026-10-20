@@ -7,6 +7,8 @@ public class InteractMilk : InteractObject
     public GameObject cookiesNote;
     public GameObject cookiesCompleteNote;
     public GameObject findIntruderNote;
+    public GameObject fridgeMilk;
+    public GameObject fridgeDrano;
 
     public override void Interact()
     {
@@ -16,10 +18,11 @@ public class InteractMilk : InteractObject
         this.cookiesCompleteNote.SetActive(true);
         this.findIntruderNote.SetActive(true);
 
+        this.fridgeMilk.SetActive(true);
+        this.fridgeDrano.SetActive(false);
+
         this.gameObject.SetActive(false);
 
         AnomalyManager.instance.ForceNextScriptedAnomaly();
-
-        
     }
 }

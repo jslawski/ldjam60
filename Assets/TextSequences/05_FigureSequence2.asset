@@ -22,11 +22,12 @@ MonoBehaviour:
     until your identity is eroded away along with any perception of reality.
   - "What\u2019s left of who you are will pour out through the cracks."
   - What meaning does reality have if it can all be taken away that easily?
-  textColor:
-  - {r: 1, g: 0.7971698, b: 0.9517746, a: 1}
-  - {r: 1, g: 0.7960785, b: 0.95294124, a: 1}
-  - {r: 1, g: 0.7960785, b: 0.95294124, a: 1}
-  - {r: 1, g: 0.7960785, b: 0.95294124, a: 1}
-  - {r: 1, g: 0.7960785, b: 0.95294124, a: 1}
-  - {r: 1, g: 0.7960785, b: 0.95294124, a: 1}
+  titles:
+  - Figure
+  - Figure
+  - Figure
+  - Figure
+  - Figure
+  - Figure
+  textColor: {r: 0.7921569, g: 0, b: 0, a: 1}
   activeText: 0

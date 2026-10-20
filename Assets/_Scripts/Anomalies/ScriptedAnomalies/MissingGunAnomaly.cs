@@ -36,6 +36,5 @@ public class MissingGunAnomaly : ScriptedAnomaly
         this.missingGunObject.SetActive(true);
 
         AnomalyManager.instance.StartAnomalyHunt(5);
-        AnomalyManager.instance.RefillPills();
     }
 }

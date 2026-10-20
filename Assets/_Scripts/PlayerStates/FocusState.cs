@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FocusState : PlayerState
 {
-    private float _timeTilFocusComplete = 3.0f;
+    private float _timeTilFocusComplete = 2.0f;
 
     private Vector3 defaultPosition;
     private float _defaultFOV = 60.0f;
@@ -19,7 +19,7 @@ public class FocusState : PlayerState
     private Tweener _zoomInTween;
     private Tweener _zoomOutTween;
 
-    private float _doorOpenBuffer = 2.8f;
+    private float _doorOpenBuffer = 1.8f;
 
     private int _originalLookObjectCount = 0;
 

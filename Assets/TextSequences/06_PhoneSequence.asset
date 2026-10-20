@@ -15,6 +15,7 @@ MonoBehaviour:
   texts:
   - "Just a reminder we\u2019re still coming over for your birthday tomorrow, it\u2019s
     a big milestone so there\u2019s no way we\u2019re missing it!"
-  textColor:
-  - {r: 0.1599521, g: 0.7075472, b: 0, a: 1}
+  titles:
+  - ???
+  textColor: {r: 1, g: 1, b: 1, a: 1}
   activeText: 1

@@ -26,9 +26,7 @@ public class PainterAnomaly : ScriptedAnomaly
             this.tidyUpNote.SetActive(true);
 
             MusicManager.instance.RemoveDistress();
-            MusicManager.instance.PlayPlace();
-
-            this.Deactivate();
+            MusicManager.instance.PlayPlace();            
         }
     }
 
@@ -37,6 +35,23 @@ public class PainterAnomaly : ScriptedAnomaly
         this._characterController.currentTextSequence = this._anomalyTextSequence;
         this._characterController.ChangeState(new ReadState());
 
-        AnomalyManager.instance.StartAnomalyHunt(2);
+        StartCoroutine(this.WaitForFinish());
+
+        
+    }
+
+    private IEnumerator WaitForFinish()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        while (TextSequenceManager.instance.sequenceFinished == false)
+        {
+            yield return null;
+        }
+
+        AnomalyManager.instance.StartAnomalyHunt(4);
+        AnomalyManager.instance.RefillPills();
+
+        this.Deactivate();
     }
 }

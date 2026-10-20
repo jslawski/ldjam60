@@ -20,8 +20,9 @@ public class FatherAnomaly : ScriptedAnomaly
     {
         base.Activate();
 
-        AnomalyManager.instance.StartAnomalyHunt(2);
+        AnomalyManager.instance.StartAnomalyHunt(3);
         AnomalyManager.instance.RefillPills();
+        
         this.pillsObject.SetActive(false);
 
         MusicManager.instance.AddDistress();

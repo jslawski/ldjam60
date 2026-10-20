@@ -13,7 +13,7 @@ public class HousekeeperAnomaly : ScriptedAnomaly
     public GameObject findMedsNote;
     public GameObject findMedsNoteComplete;
     public GameObject bakeCookiesNote;
-    public InteractObject cookiesIngredients;
+    public GameObject cookiesIngredients;
 
     private PlayerCharacterController _characterController;
 
@@ -56,7 +56,7 @@ public class HousekeeperAnomaly : ScriptedAnomaly
         this.findMedsNote.SetActive(false);
         this.findMedsNoteComplete.SetActive(true);
         this.bakeCookiesNote.SetActive(true);
-        this.cookiesIngredients.enabled = true;
+        this.cookiesIngredients.SetActive(true);
 
         AnomalyManager.instance.RefillPills();
     }

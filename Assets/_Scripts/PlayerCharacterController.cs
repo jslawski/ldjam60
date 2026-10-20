@@ -78,6 +78,8 @@ public class PlayerCharacterController : MonoBehaviour
 
     public Ray lastRay;
 
+    public AudioClip noAnomalySound;
+
     private void Awake()
     {
         this._cameraTransform = Camera.main.transform;
@@ -111,7 +113,7 @@ public class PlayerCharacterController : MonoBehaviour
         this._currentState = newState;
         this._currentState.EnterState(this);
 
-        Debug.LogError("New State: " + this._currentState.GetType().Name);
+        //Debug.LogError("New State: " + this._currentState.GetType().Name);
     }
 
     private float GetClampedXAngle()
@@ -440,13 +442,23 @@ public class PlayerCharacterController : MonoBehaviour
         {
             this.CastCameraRay(this._anomalyCheckLayer, 10.0f, true);
         }
-        
+
         if (this._hitCheck.success == true)
         {
             if (this._hitCheck.hitInfo.collider.tag == "Anomaly")
             {
-                this.FixAnomaly(this._hitCheck.hitInfo.collider.gameObject);        
+                this.FixAnomaly(this._hitCheck.hitInfo.collider.gameObject);
             }
+            else
+            {
+                AudioChannelSettings channelSettings = new AudioChannelSettings(false);
+                AudioManager.instance.Play(this.noAnomalySound, channelSettings);
+            }
+        }
+        else
+        {
+            AudioChannelSettings channelSettings = new AudioChannelSettings(false);
+            AudioManager.instance.Play(this.noAnomalySound, channelSettings);
         }
     }
 

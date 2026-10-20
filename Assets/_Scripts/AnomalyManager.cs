@@ -16,8 +16,8 @@ public class AnomalyManager : MonoBehaviour
 
     public int targetAnomaliesToResolve = 3;
 
-    private float _minTimeBetweenAnomalies = 1.0f;//45.0f;
-    private float _maxTimeBetweenAnomalies = 1.0f;//90.0f;
+    private float _minTimeBetweenAnomalies = 10f;
+    private float _maxTimeBetweenAnomalies = 20f;
 
     private float _minTimeBetweenBenignAnomalies = 120.0f;
     private float _maxTimeBetweenBenignAnomalies = 240.0f;
@@ -32,6 +32,8 @@ public class AnomalyManager : MonoBehaviour
     public Transform clockTransform;
 
     private ScriptedAnomaly _currentScriptedAnomaly;
+
+    public AudioClip anomalyResolvedSound;
 
     private void Awake()
     {
@@ -220,6 +222,9 @@ public class AnomalyManager : MonoBehaviour
     {
         this.numActiveAnomalies--;
         this.targetAnomaliesToResolve--;
+
+        AudioChannelSettings channelSettings = new AudioChannelSettings(false, 0.2f);
+        AudioManager.instance.Play(this.anomalyResolvedSound, channelSettings);
     }
 
     public void ResolveAllActiveAnomalies()
@@ -239,5 +244,16 @@ public class AnomalyManager : MonoBehaviour
 
         AudioChannelSettings channelSettings = new AudioChannelSettings(false, 1, 1, 1, "SFX", this.clockTransform);
         AudioManager.instance.Play(this.clockChime, channelSettings);
+    }
+
+    public void GoCrazy()
+    {
+        this._minTimeBetweenAnomalies = 1.0f;
+        this._maxTimeBetweenAnomalies = 1.0f;
+        this.maxNumAnomalies = 1000;
+        this.targetAnomaliesToResolve = 1000;
+
+        this.StopAnomalyGeneration();
+        this.StartAnomalyGeneration();
     }
 }

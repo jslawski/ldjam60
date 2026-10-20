@@ -9,6 +9,7 @@ public class MusicManager : MonoBehaviour
     public AudioSource feeling;
     public AudioSource place;
     public AudioSource distress;
+    public AudioSource creepy;
 
     private void Awake()
     {
@@ -40,6 +41,19 @@ public class MusicManager : MonoBehaviour
     public void RemoveDistress()
     {
         this.distress.volume = 0.0f;
+    }
+
+    public void PlayCreepy()
+    {
+        this.place.volume = 0.0f;
+        this.feeling.volume = 0.0f;
+        this.distress.volume = 0.0f;
+        this.creepy.Play();
+    }
+
+    public void StopCreepy()
+    {
+        this.creepy.Stop();
     }
 
     public void StopAll()

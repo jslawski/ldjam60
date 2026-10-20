@@ -9,6 +9,8 @@ public class DoctorScriptedAnomaly : ScriptedAnomaly
 
     public PlayerCharacterController _characterController;
 
+    public PositionAnomaly positionAnomaly;
+
     public override void StartSequence()
     {
         base.StartSequence();        
@@ -30,7 +32,10 @@ public class DoctorScriptedAnomaly : ScriptedAnomaly
 
         StopAllCoroutines();
 
-        AnomalyManager.instance.StartAnomalyHunt(1);
+        this.positionAnomaly.Activate();
+
+        AnomalyManager.instance.StartAnomalyHunt(3);
+        AnomalyManager.instance.RefillPills();
     }
 
     private IEnumerator WaitForFinish()

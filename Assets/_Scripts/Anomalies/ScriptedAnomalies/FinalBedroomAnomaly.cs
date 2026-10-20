@@ -65,6 +65,7 @@ public class FinalBedroomAnomaly : ScriptedAnomaly
         this._characterController.currentTextSequence = this.voidTextSequence;
         this._characterController.ChangeState(new ReadState());
 
-        MusicManager.instance.AddDistress();
+        MusicManager.instance.PlayCreepy();
+        AnomalyManager.instance.GoCrazy();
     }
 }

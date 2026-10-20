@@ -9,6 +9,10 @@ public class TextSequenceManager : MonoBehaviour
 {
     public static TextSequenceManager instance;
 
+
+    [SerializeField]
+    private TextMeshProUGUI _titleText;
+
     [SerializeField]
     private TextMeshProUGUI _displayText;
 
@@ -71,9 +75,11 @@ public class TextSequenceManager : MonoBehaviour
         StopAllCoroutines();        
         this._currentSequence = newSequence;
         this._currentIndex = 0;
+        this._titleText.text = string.Empty;
         this._displayText.text = string.Empty;
         this.sequenceFinished = false;
         this._displayText.DOKill();
+        this._titleText.DOKill();
 
         this.DisplayCurrentText();
     }
@@ -81,8 +87,10 @@ public class TextSequenceManager : MonoBehaviour
     private void DisplayCurrentText()
     {
         this._displayText.text = string.Empty;
-        this._originalColor = this._currentSequence.textColor[this._currentIndex];
-        this._displayText.color = this._originalColor;
+        this._titleText.text = this._currentSequence.titles[this._currentIndex];
+        //this._originalColor = this._currentSequence.textColor[this._currentIndex];
+        this._displayText.color = this._currentSequence.textColor;
+        this._titleText.color = this._currentSequence.textColor;
         this._displayCoroutine = StartCoroutine(this.TypeWriteText());
     }
 
@@ -155,11 +163,13 @@ public class TextSequenceManager : MonoBehaviour
         fadedColor.a = 0.0f;
 
         this._displayText.DOColor(fadedColor, 0.5f).OnComplete(this.ClearText);
+        this._titleText.DOColor(fadedColor, 0.5f);
         this.sequenceFinished = true;
     }
 
     private void ClearText()
     {
         this._displayText.text = string.Empty;
+        this._titleText.text = string.Empty;
     }
 }

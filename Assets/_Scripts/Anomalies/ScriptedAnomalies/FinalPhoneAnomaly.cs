@@ -21,11 +21,13 @@ public class FinalPhoneAnomaly : ScriptedAnomaly
         {
             this._characterController = other.gameObject.GetComponentInParent<PlayerCharacterController>();
 
+            AnomalyManager.instance.StopAnomalyGeneration();
             this.StartSequence();
             this.Deactivate();
         }
 
         MusicManager.instance.RemoveDistress();
+        MusicManager.instance.StopCreepy();
         MusicManager.instance.PlayFeeling();
     }
 

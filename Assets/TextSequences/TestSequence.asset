@@ -19,3 +19,5 @@ MonoBehaviour:
     how much text can ACTUALLY display inside this textbox at once.
   - This sentence is short.
   - Fuck you.
+  textColor: {r: 1, g: 1, b: 1, a: 1}
+  activeText: 0

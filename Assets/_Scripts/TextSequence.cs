@@ -6,6 +6,7 @@ using UnityEngine;
 public class TextSequence : ScriptableObject
 {
     public string[] texts;
-    public Color[] textColor;
+    public string[] titles;
+    public Color textColor;
     public bool activeText;
 }
