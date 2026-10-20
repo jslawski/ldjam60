@@ -15,12 +15,26 @@ public class HousekeeperAnomaly : ScriptedAnomaly
     public GameObject bakeCookiesNote;
     public InteractObject cookiesIngredients;
 
+    private PlayerCharacterController _characterController;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            this._characterController = other.gameObject.GetComponentInParent<PlayerCharacterController>();
+
+            this.StartSequence();
+        }
+    }
 
     public override void StartSequence()
     {
         base.StartSequence();
 
-        TextSequenceManager.instance.StartTextSequence(this.textSequence, this.Deactivate);
+        this._characterController.currentTextSequence = this.textSequence;
+        this._characterController.ChangeState(new ReadState());
+
+        StartCoroutine(this.WaitForFinish());
     }
 
     public override void Activate()
@@ -45,5 +59,17 @@ public class HousekeeperAnomaly : ScriptedAnomaly
         this.cookiesIngredients.enabled = true;
 
         AnomalyManager.instance.RefillPills();
+    }
+
+    private IEnumerator WaitForFinish()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        while (TextSequenceManager.instance.sequenceFinished == false)
+        {
+            yield return null;
+        }
+
+        this.Deactivate();
     }
 }

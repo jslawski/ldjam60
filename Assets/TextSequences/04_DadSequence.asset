@@ -15,5 +15,5 @@ MonoBehaviour:
   texts:
   - "You\u2019re going to be late for class. Isn't there a big exam today?"
   textColor:
-  - {r: 1, g: 0.19293614, b: 0.08962262, a: 0}
+  - {r: 1, g: 0.19293614, b: 0.08962262, a: 1}
   activeText: 1

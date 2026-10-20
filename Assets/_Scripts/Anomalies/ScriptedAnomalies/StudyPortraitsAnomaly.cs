@@ -19,6 +19,8 @@ public class StudyPortraitsAnomaly : ScriptedAnomaly
         base.Activate();
         this.whiteFigure.SetActive(true);
         this.painter.SetActive(false);
+
+        MusicManager.instance.StopAll();
     }
 
     public override void Deactivate()

@@ -14,6 +14,8 @@ public class ReadState : PlayerState
         this.characterController.DisableHUD();
 
         TextSequenceManager.instance.StartTextSequence(this.characterController.currentTextSequence);
+
+        this.characterController.StopMovement();
     }
 
     public override void UpdateState()

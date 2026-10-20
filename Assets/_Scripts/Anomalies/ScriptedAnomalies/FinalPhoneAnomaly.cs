@@ -32,7 +32,11 @@ public class FinalPhoneAnomaly : ScriptedAnomaly
     public override void StartSequence()
     {
         AudioChannelSettings channelSettings = new AudioChannelSettings(false, 1, 1, 1, "SFX", this.phoneTransform);
-        TextSequenceManager.instance.StartTextSequence(this._anomalyTextSequence, this.FinishGame);        
+        AudioManager.instance.Play(this.phoneRing, channelSettings);
+
+        TextSequenceManager.instance.StartTextSequence(this._anomalyTextSequence);
+
+        Invoke("FinishGame", 10.0f);
     }
 
     private void FinishGame()

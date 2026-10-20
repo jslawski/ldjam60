@@ -8,6 +8,8 @@ public class IntroPhoneAnomaly : ScriptedAnomaly
     public AudioClip phoneRing;
     public int audioID;
 
+    public Collider interactCollider;
+
     public override void StartSequence()
     {
         base.StartSequence();
@@ -19,13 +21,29 @@ public class IntroPhoneAnomaly : ScriptedAnomaly
     {
         base.Activate();
 
-        AudioChannelSettings channelSettings = new AudioChannelSettings(true, 1, 1, 1, "SFX", this.phoneObject.transform);
-        this.audioID = AudioManager.instance.Play(this.phoneRing, channelSettings);
+        StartCoroutine(this.RingPhone());
     }
 
     public override void Deactivate() 
     {
+        base.Deactivate();
+    
         AudioManager.instance.Stop(audioID);
         AnomalyManager.instance.ForceNextScriptedAnomaly();
+
+        this.interactCollider.enabled = false;
+
+        StopAllCoroutines();
+    }
+
+    private IEnumerator RingPhone()
+    {
+        while (true)
+        {
+            AudioChannelSettings channelSettings = new AudioChannelSettings(false, 1, 1, 1, "SFX", this.phoneObject.transform);
+            this.audioID = AudioManager.instance.Play(this.phoneRing, channelSettings);
+
+            yield return new WaitForSeconds(3.0f);
+        }
     }
 }

@@ -12,7 +12,7 @@ public class AnomalyManager : MonoBehaviour
     private BenignAnomaly[] _allBenignAnomalies;
 
     public int numActiveAnomalies = 0;
-    public int maxNumAnomalies = 10;
+    private int maxNumAnomalies = 100;
 
     public int targetAnomaliesToResolve = 3;
 
@@ -77,6 +77,8 @@ public class AnomalyManager : MonoBehaviour
     private void Start()
     {
         //this.StartAnomalyHunt(30);
+
+        this.ForceNextScriptedAnomaly();
     }
 
     public void StartAnomalyHunt(int targetAnomalies)
@@ -153,6 +155,7 @@ public class AnomalyManager : MonoBehaviour
         if (attempts > 0)
         {
             randomAnomaly.Activate();
+            Debug.LogError("Anomaly Activated! " + randomAnomaly.transform.parent.gameObject.name);
             this.numActiveAnomalies++;            
         }
     }
@@ -179,12 +182,24 @@ public class AnomalyManager : MonoBehaviour
 
     public void ForceNextScriptedAnomaly()
     {
+        if (this._currentScriptedAnomaly != null && this._currentScriptedAnomaly.isActive == true)
+        {
+            this._currentScriptedAnomaly.Deactivate();
+        }
+
+        this.StopAnomalyGeneration();
+
         this._currentScriptedAnomaly = this._scriptedAnomaliesQueue.Dequeue();
-        this._currentScriptedAnomaly.Activate();
+        this._currentScriptedAnomaly.Activate();        
     }
 
     private IEnumerator ActivateNextScriptedAnomaly()
     {
+        if (this._currentScriptedAnomaly != null && this._currentScriptedAnomaly.isActive == true)
+        {
+            this._currentScriptedAnomaly.Deactivate();
+        }
+
         this._currentScriptedAnomaly = this._scriptedAnomaliesQueue.Dequeue();
 
         while (this._currentScriptedAnomaly.IsVisible() == true)
@@ -193,6 +208,7 @@ public class AnomalyManager : MonoBehaviour
         }
 
         this._currentScriptedAnomaly.Activate();
+        this.StopAnomalyGeneration();
     }
 
     public void TriggerScriptedSequence()

@@ -6,6 +6,8 @@ public class ScriptedAnomaly : MonoBehaviour
 {    
     protected Collider _anomalyCollider;
 
+    public bool isActive = false;
+
     protected virtual void Awake()
     {
         this._anomalyCollider = GetComponent<Collider>();
@@ -20,11 +22,13 @@ public class ScriptedAnomaly : MonoBehaviour
     public virtual void Activate()
     {
         this._anomalyCollider.enabled = true;
+        this.isActive = true;
     }
 
     public virtual void Deactivate()
     {
         this._anomalyCollider.enabled = false;
+        this.isActive = false;
     }
 
     public virtual bool IsVisible()

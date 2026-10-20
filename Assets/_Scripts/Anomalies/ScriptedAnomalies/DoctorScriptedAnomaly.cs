@@ -7,17 +7,41 @@ public class DoctorScriptedAnomaly : ScriptedAnomaly
     public MaterialAnomaly _paintingAnomaly;
     public TextSequence _doctorSequence;
 
+    public PlayerCharacterController _characterController;
+
     public override void StartSequence()
     {
-        base.StartSequence();
+        base.StartSequence();        
+    }
 
-        TextSequenceManager.instance.StartTextSequence(this._doctorSequence, this.Deactivate);
+    public override void Activate()
+    {
+        base.Activate();
+
+        this._characterController.currentTextSequence = this._doctorSequence;
+        this._characterController.ChangeState(new ReadState());
+
+        StartCoroutine(this.WaitForFinish());
     }
 
     public override void Deactivate()
     {
         base.Deactivate();
 
-        AnomalyManager.instance.StartAnomalyHunt(5);
+        StopAllCoroutines();
+
+        AnomalyManager.instance.StartAnomalyHunt(1);
+    }
+
+    private IEnumerator WaitForFinish()
+    {
+        yield return new WaitForSeconds(1.0f);    
+
+        while (TextSequenceManager.instance.sequenceFinished == false)
+        {        
+            yield return null;
+        }
+
+        this.Deactivate();
     }
 }

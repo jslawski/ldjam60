@@ -73,15 +73,16 @@ public class TextSequenceManager : MonoBehaviour
         this._currentIndex = 0;
         this._displayText.text = string.Empty;
         this.sequenceFinished = false;
+        this._displayText.DOKill();
 
         this.DisplayCurrentText();
-
     }
 
     private void DisplayCurrentText()
     {
         this._displayText.text = string.Empty;
         this._originalColor = this._currentSequence.textColor[this._currentIndex];
+        this._displayText.color = this._originalColor;
         this._displayCoroutine = StartCoroutine(this.TypeWriteText());
     }
 

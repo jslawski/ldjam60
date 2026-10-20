@@ -42,6 +42,6 @@ public class Pills : InteractObject
     public void Refill()
     {
         this.available = true;
-        TextSequenceManager.instance.StartTextSequence(this._pillsAvailableSequence);
+        //TextSequenceManager.instance.StartTextSequence(this._pillsAvailableSequence);
     }
 }

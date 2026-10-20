@@ -115,6 +115,7 @@ public class FocusState : PlayerState
         }
         else
         {
+            this.characterController.TryInteract();
             this.characterController.AttemptAnomalyFix();
             this.RevertToPreviousState();
         }
@@ -122,6 +123,11 @@ public class FocusState : PlayerState
 
     private void RevertToPreviousState()
     {
+        if (this.characterController._currentState.GetType() == typeof(ReadState))
+        {
+            return;
+        }
+    
         if (this.characterController.lookObjectStack.Count > 0)
         {
             this.characterController.ChangeState(new LookState());

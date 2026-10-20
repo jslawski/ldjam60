@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778d2bad56cc7754d8d43ba7067b4d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anomalyCollider: {fileID: 0}
   isActive: 0
   _changingRenderer: {fileID: 0}
   _defaultMaterial: {fileID: 0}
@@ -119,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95ee10a4d0f27e4d9cecbd02f0e721a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anomalyCollider: {fileID: 0}
   isActive: 0
   _isMissingAnomaly: 0
 --- !u!114 &4384457388214837119
@@ -133,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2f47de8fb3888146bd602c70ae0d8d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anomalyCollider: {fileID: 0}
   isActive: 0
   _oldPositionCollider: {fileID: 558907467980556659}
   _anomalyPosition: {x: 0, y: 0, z: 0}
@@ -149,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26cdbcc14629524ca4bf201a5445ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anomalyCollider: {fileID: 0}
   isActive: 0
   _originalObject: {fileID: 0}
   _replacementObject: {fileID: 0}
@@ -164,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dda9d466ea217a42acfe5cf2e003874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anomalyCollider: {fileID: 0}
   isActive: 0
   _objectSwapTarget: {fileID: 0}
 --- !u!1 &8205115286092416158
@@ -215,7 +220,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

@@ -22,7 +22,7 @@ public class PainterAnomaly : ScriptedAnomaly
             this.StartSequence();
 
             this.findIntruderNote.SetActive(false);
-            this.findIntruderNote.SetActive(true);
+            this.findIntruderComplete.SetActive(true);
             this.tidyUpNote.SetActive(true);
 
             MusicManager.instance.RemoveDistress();
@@ -37,6 +37,6 @@ public class PainterAnomaly : ScriptedAnomaly
         this._characterController.currentTextSequence = this._anomalyTextSequence;
         this._characterController.ChangeState(new ReadState());
 
-        AnomalyManager.instance.StartAnomalyHunt(5);
+        AnomalyManager.instance.StartAnomalyHunt(2);
     }
 }

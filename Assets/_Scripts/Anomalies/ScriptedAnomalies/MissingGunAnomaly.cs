@@ -29,6 +29,8 @@ public class MissingGunAnomaly : ScriptedAnomaly
 
     public override void Deactivate()
     {
+        base.Deactivate();
+    
         AudioChannelSettings channelSettings = new AudioChannelSettings(false, 1, 1, 1, "SFX");
         AudioManager.instance.Play(this.glassBreakSound, channelSettings);
         this.missingGunObject.SetActive(true);

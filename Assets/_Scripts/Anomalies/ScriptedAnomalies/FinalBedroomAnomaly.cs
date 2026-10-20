@@ -34,19 +34,21 @@ public class FinalBedroomAnomaly : ScriptedAnomaly
         this._characterController.ChangeState(new ReadState());
 
         MusicManager.instance.StopAll();
+
+        StartCoroutine(WaitForSequenceEnd());
     }
 
     public override void Activate()
     {
         base.Activate();
-        this.finalBedroomObject.SetActive(true);
-
-        AnomalyManager.instance.ForceNextScriptedAnomaly();
+        this.finalBedroomObject.SetActive(true);        
     }
 
     public override void Deactivate()
     {
         base.Deactivate();
+
+        AnomalyManager.instance.ForceNextScriptedAnomaly();
     }
 
     private IEnumerator WaitForSequenceEnd()

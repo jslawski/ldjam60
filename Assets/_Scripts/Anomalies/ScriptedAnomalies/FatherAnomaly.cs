@@ -20,15 +20,14 @@ public class FatherAnomaly : ScriptedAnomaly
     {
         base.Activate();
 
-        AudioChannelSettings channelSettings = new AudioChannelSettings(true, 1, 1, 1, "SFX", this.phoneTransform);
-        this.audioID = AudioManager.instance.Play(this.phoneRing, channelSettings);
-        AnomalyManager.instance.StartAnomalyHunt(5);
+        AnomalyManager.instance.StartAnomalyHunt(2);
         AnomalyManager.instance.RefillPills();
         this.pillsObject.SetActive(false);
 
         MusicManager.instance.AddDistress();
 
         StartCoroutine(this.DadDialogue());
+        StartCoroutine(this.RingPhone());
     }
 
     public override void Deactivate()
@@ -44,6 +43,17 @@ public class FatherAnomaly : ScriptedAnomaly
         {
             TextSequenceManager.instance.StartTextSequence(this.textSequence);
             yield return new WaitForSeconds(30.0f);
+        }
+    }
+
+    private IEnumerator RingPhone()
+    {
+        while (true)
+        {
+            AudioChannelSettings channelSettings = new AudioChannelSettings(false, 1, 1, 1, "SFX");
+            this.audioID = AudioManager.instance.Play(this.phoneRing, channelSettings);
+
+            yield return new WaitForSeconds(5.0f);
         }
     }
 }
