@@ -70,7 +70,7 @@ public class FocusState : PlayerState
 
         if (this.characterController.lookObjectStack.Count == this.oldLookStackCount)
         {
-            Camera.main.transform.DOLocalMove(this._defaultLocalPosition, 0.2f);
+            Camera.main.transform.DOMove(this.defaultPosition, 0.2f);
         }
     }
 

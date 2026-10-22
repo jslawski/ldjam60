@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LookState : PlayerState
 {
+    private Vector2 minCameraPosition = new Vector2(-0.15f, -0.1f);
+    private Vector2 maxCameraPosition = new Vector2(0.15f, 0.1f);
+
     public override void EnterState(PlayerCharacterController characterController)
     {
         base.EnterState(characterController);
@@ -11,7 +14,7 @@ public class LookState : PlayerState
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
-        this.characterController.DisableHUD();        
+        this.characterController.DisableHUD();
     }
 
     public override void UpdateState()
@@ -25,6 +28,8 @@ public class LookState : PlayerState
 
         Camera.main.transform.position = newCameraPosition;
         */
+
+        this.UpdateCameraPosition();
 
         if (PlayerControlsManager.instance.leftClickInitiated == true)
         {
@@ -54,5 +59,14 @@ public class LookState : PlayerState
             PlayerControlsManager.instance.rightClickInitiated = false;
             this.characterController.ExitLookTransform();
         }
+    }
+
+    private void UpdateCameraPosition()
+    {    
+        Vector2 mouseViewportPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        float xPosition = Mathf.Lerp(this.minCameraPosition.x, this.maxCameraPosition.x, mouseViewportPosition.x);
+        float yPosition = Mathf.Lerp(this.minCameraPosition.y, this.maxCameraPosition.y, mouseViewportPosition.y);
+
+        Camera.main.transform.localPosition = new Vector3(xPosition, yPosition + 0.465f, Camera.main.transform.localPosition.z);        
     }
 }

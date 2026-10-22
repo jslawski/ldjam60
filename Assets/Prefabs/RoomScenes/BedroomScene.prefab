@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5965982665894018264}
   - component: {fileID: 6587607029107829705}
   - component: {fileID: 3492954096615209749}
+  - component: {fileID: 118094116581375610}
   m_Layer: 0
   m_Name: Bed
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 98870255470468762}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5597, y: -0.4028, z: 0}
+  m_LocalPosition: {x: 0.5597, y: -0.4028, z: 2}
   m_LocalScale: {x: 2.36591, y: 2.36591, z: 2.36591}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -106,6 +107,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.81, y: 0.64, z: 0.001}
   m_Center: {x: 0.07, y: 0, z: 0}
+--- !u!114 &118094116581375610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98870255470468762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e645fb9d3c65bd447bb15553ff68a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalizedDistanceFromCamera: 0.05
 --- !u!1 &1557311895924950898
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +131,7 @@ GameObject:
   - component: {fileID: 7107669669483461306}
   - component: {fileID: 8537179384845847937}
   - component: {fileID: 6288212115773678370}
+  - component: {fileID: 6501799191742719118}
   m_Layer: 0
   m_Name: Nightstand
   m_TagString: Untagged
@@ -133,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 1557311895924950898}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.563, y: -0.44, z: 0}
+  m_LocalPosition: {x: -0.563, y: -0.44, z: 2}
   m_LocalScale: {x: 0.8814502, y: 0.8814502, z: 0.8814502}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -212,6 +227,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.55, y: 0.47, z: 0.001}
   m_Center: {x: -0.03, y: 0.25, z: 0}
+--- !u!114 &6501799191742719118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557311895924950898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e645fb9d3c65bd447bb15553ff68a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalizedDistanceFromCamera: 0.05
 --- !u!1 &2014936900089418814
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +251,7 @@ GameObject:
   - component: {fileID: 309319272916620648}
   - component: {fileID: 4669558872528809678}
   - component: {fileID: 982446817520473381}
+  - component: {fileID: 7872902763744896080}
   m_Layer: 0
   m_Name: Mirror
   m_TagString: Untagged
@@ -239,7 +268,7 @@ Transform:
   m_GameObject: {fileID: 2014936900089418814}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.106, y: -0.0637, z: 0}
+  m_LocalPosition: {x: 2.106, y: -0.0637, z: 2}
   m_LocalScale: {x: 2.1133487, y: 2.1133487, z: 2.1133487}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -319,6 +348,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.47, y: 1, z: 0.001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7872902763744896080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014936900089418814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e645fb9d3c65bd447bb15553ff68a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalizedDistanceFromCamera: 0.05
 --- !u!1 &2190909795024802370
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +404,7 @@ GameObject:
   - component: {fileID: 6450830162797247494}
   - component: {fileID: 2455451765568019037}
   - component: {fileID: 9197656236478769123}
+  - component: {fileID: 8543753542029028659}
   m_Layer: 0
   m_Name: BackWall
   m_TagString: Untagged
@@ -378,7 +421,7 @@ Transform:
   m_GameObject: {fileID: 2421975284081013675}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -457,6 +500,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.91, y: 1.05, z: 0.001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8543753542029028659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2421975284081013675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e645fb9d3c65bd447bb15553ff68a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalizedDistanceFromCamera: 0.05
 --- !u!1 &3804055758577835922
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,6 +524,7 @@ GameObject:
   - component: {fileID: 2577647150332345159}
   - component: {fileID: 9094103529621593505}
   - component: {fileID: 5751306967282214089}
+  - component: {fileID: 436309133110879853}
   m_Layer: 0
   m_Name: Mirror2
   m_TagString: Untagged
@@ -484,7 +541,7 @@ Transform:
   m_GameObject: {fileID: 3804055758577835922}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8505, y: 0.6576, z: 0}
+  m_LocalPosition: {x: -1.8505, y: 0.6576, z: 2}
   m_LocalScale: {x: 1.2878292, y: 1.2878292, z: 1.2878292}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -564,6 +621,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.78, z: 0.001}
   m_Center: {x: 0, y: 0.06, z: 0}
+--- !u!114 &436309133110879853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3804055758577835922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e645fb9d3c65bd447bb15553ff68a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalizedDistanceFromCamera: 0.05
 --- !u!1 &5601545530189354140
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,6 +645,7 @@ GameObject:
   - component: {fileID: 6913400950234717999}
   - component: {fileID: 4394714102164648902}
   - component: {fileID: 4747974676061073723}
+  - component: {fileID: 1318181265411334191}
   m_Layer: 0
   m_Name: Picture
   m_TagString: Untagged
@@ -591,7 +662,7 @@ Transform:
   m_GameObject: {fileID: 5601545530189354140}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.273, y: 0.774, z: 0}
+  m_LocalPosition: {x: 0.273, y: 0.774, z: 2}
   m_LocalScale: {x: 0.7866311, y: 0.7866311, z: 0.7866311}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -671,6 +742,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.62, y: 1, z: 0.001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1318181265411334191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5601545530189354140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e645fb9d3c65bd447bb15553ff68a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalizedDistanceFromCamera: 0.05
 --- !u!1 &6135723930263164309
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,6 +808,7 @@ GameObject:
   - component: {fileID: 204686183052434902}
   - component: {fileID: 6388269225660870496}
   - component: {fileID: 2195755459938792961}
+  - component: {fileID: 3552420883871798907}
   m_Layer: 0
   m_Name: Lamp2
   m_TagString: Untagged
@@ -740,7 +825,7 @@ Transform:
   m_GameObject: {fileID: 6680921010904683643}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8874, y: 0.2572, z: 0}
+  m_LocalPosition: {x: -1.8874, y: 0.2572, z: 2}
   m_LocalScale: {x: 0.59057856, y: 0.59057856, z: 0.59057856}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -819,6 +904,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 1, z: 0.001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3552420883871798907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680921010904683643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e645fb9d3c65bd447bb15553ff68a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalizedDistanceFromCamera: 0.05
 --- !u!1 &6838826622410669378
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +928,7 @@ GameObject:
   - component: {fileID: 1839453412710015528}
   - component: {fileID: 1199342706895350573}
   - component: {fileID: 5313144874344307361}
+  - component: {fileID: 2376020087810529899}
   m_Layer: 0
   m_Name: Dresser
   m_TagString: Untagged
@@ -846,7 +945,7 @@ Transform:
   m_GameObject: {fileID: 6838826622410669378}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.605, y: -0.593, z: 0}
+  m_LocalPosition: {x: -1.605, y: -0.593, z: 2}
   m_LocalScale: {x: 1.4686445, y: 1.4686445, z: 1.4686445}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -925,6 +1024,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2376020087810529899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838826622410669378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e645fb9d3c65bd447bb15553ff68a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalizedDistanceFromCamera: 0.05
 --- !u!1 &7965796558003907357
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,6 +1048,7 @@ GameObject:
   - component: {fileID: 712727320215700539}
   - component: {fileID: 4080676002578186238}
   - component: {fileID: 1189773557825695496}
+  - component: {fileID: 91724075286195214}
   m_Layer: 0
   m_Name: MusicBox
   m_TagString: Untagged
@@ -952,7 +1065,7 @@ Transform:
   m_GameObject: {fileID: 7965796558003907357}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.539, y: 0.143, z: 0}
+  m_LocalPosition: {x: -1.539, y: 0.143, z: 2}
   m_LocalScale: {x: 0.27579287, y: 0.27579287, z: 0.27579287}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1032,6 +1145,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &91724075286195214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7965796558003907357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e645fb9d3c65bd447bb15553ff68a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalizedDistanceFromCamera: 0.05
 --- !u!1 &8303682163687277219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1169,7 @@ GameObject:
   - component: {fileID: 3037128512046927094}
   - component: {fileID: 5095972282283459428}
   - component: {fileID: 2044647035897288675}
+  - component: {fileID: 2922566866395215920}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -1059,7 +1186,7 @@ Transform:
   m_GameObject: {fileID: 8303682163687277219}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.708, y: -0.241, z: 0}
+  m_LocalPosition: {x: 0.708, y: -0.241, z: 2}
   m_LocalScale: {x: 0.27579287, y: 0.27579287, z: 0.27579287}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1138,6 +1265,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2922566866395215920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8303682163687277219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e645fb9d3c65bd447bb15553ff68a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalizedDistanceFromCamera: 0.05
 --- !u!1 &9194474850031826462
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,6 +1289,7 @@ GameObject:
   - component: {fileID: 1362028750671409891}
   - component: {fileID: 305772947401182335}
   - component: {fileID: 155889843748440624}
+  - component: {fileID: 2697297897644299868}
   m_Layer: 0
   m_Name: Lamp
   m_TagString: Untagged
@@ -1165,7 +1306,7 @@ Transform:
   m_GameObject: {fileID: 9194474850031826462}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.594, y: 0.208, z: 0}
+  m_LocalPosition: {x: -0.594, y: 0.208, z: 2}
   m_LocalScale: {x: 0.49070868, y: 0.49070868, z: 0.49070868}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1245,6 +1386,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.55, y: 0.95, z: 0.001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2697297897644299868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9194474850031826462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e645fb9d3c65bd447bb15553ff68a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalizedDistanceFromCamera: 0.05
 --- !u!1001 &2651358366036222337
 PrefabInstance:
   m_ObjectHideFlags: 0
