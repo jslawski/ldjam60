@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LookState : PlayerState
 {
-    private Vector2 minCameraPosition = new Vector2(-0.15f, -0.1f);
-    private Vector2 maxCameraPosition = new Vector2(0.15f, 0.1f);
+    private Vector2 minCameraPosition = new Vector2(-0.1f, -0.1f);
+    private Vector2 maxCameraPosition = new Vector2(0.1f, 0.1f);
 
     public override void EnterState(PlayerCharacterController characterController)
     {

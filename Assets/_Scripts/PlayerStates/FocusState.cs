@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FocusState : PlayerState
 {
-    private float _timeTilFocusComplete = 2.0f;
+    private float _timeTilFocusComplete = 1.0f;
 
     private Vector3 defaultPosition;
     private float _defaultFOV = 60.0f;
@@ -27,7 +27,7 @@ public class FocusState : PlayerState
 
     private int oldLookStackCount = 0;
 
-    private Vector3 _defaultLocalPosition = new Vector3(0.0f, 0.465f, 0.281f);
+    private Vector3 _defaultLocalPosition = new Vector3(0.0f, 0.465f, 0.0f);
 
     public override void EnterState(PlayerCharacterController characterController)
     {
@@ -68,7 +68,7 @@ public class FocusState : PlayerState
             Camera.main.fieldOfView = currentFieldOfView;
         });
 
-        if (this.characterController.lookObjectStack.Count == this.oldLookStackCount)
+        if (this.characterController.lookObjectStack.Count > 0 && this.characterController.lookObjectStack.Count == this.oldLookStackCount)
         {
             Camera.main.transform.DOMove(this.defaultPosition, 0.2f);
         }

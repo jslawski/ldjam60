@@ -496,7 +496,7 @@ public class PlayerCharacterController : MonoBehaviour
             this._cachedPlayerRotation = this._cameraTransform.rotation;//Quaternion.Euler(Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up));
         }
 
-        this._cameraTransform.localPosition = new Vector3(0.0f, 0.465f, 0.281f);
+        this._cameraTransform.localPosition = new Vector3(0.0f, 0.465f, 0.0f);
 
         this.transform.position = latestLookObject.lookScenePosition;
         this._cameraTransform.rotation = Quaternion.identity;
